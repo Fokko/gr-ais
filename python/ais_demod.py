@@ -12,7 +12,7 @@
 
 from gnuradio import gr, gru, blks2
 from gnuradio import eng_notation
-from gnuradio import ais
+import gr_ais_swig as ais
 from gnuradio import trellis
 from gnuradio import window
 from gnuradio import digital

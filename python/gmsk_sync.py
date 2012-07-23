@@ -4,7 +4,7 @@ from gnuradio import gr
 from gnuradio import eng_notation
 from gnuradio import window
 from gnuradio import digital
-from gnuradio import ais
+import gr_ais_swig as ais
 from math import pi
 
 class square_and_fft_sync(gr.hier_block2):
