@@ -43,9 +43,8 @@ class my_top_block(gr.top_block):
 			import osmosdr
 			self.u = osmosdr.source_c(options.args)
 			self.u.set_sample_rate(options.rate)
-			self._freq_offset = options.error
-			self._actual_freq = 162.0e6 - self._freq_offset
-			if not self.u.set_center_freq(self._actual_freq):
+                        self.u.set_freq_corr(options.error)
+			if not self.u.set_center_freq(162.0e6):
 				print "Failed to set frequency"
 			self.u.set_gain_mode(0)
 			if options.gain is None:
