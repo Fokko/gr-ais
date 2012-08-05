@@ -10,7 +10,6 @@ from gnuradio import gr, gru, blks2, optfir
 from gnuradio import eng_notation
 from gr_ais import *
 from gr_ais.ais_demod import *
-from gnuradio import uhd
 from gnuradio import digital
 #from ais_parser import *
 from optparse import OptionParser
@@ -53,6 +52,7 @@ class my_top_block(gr.top_block):
 				options.gain = 49
 			self.u.set_gain(options.gain)
 		else:
+                        from gnuradio import uhd
 			self.u = uhd.usrp_source(options.addr,
 									io_type=uhd.io_type.COMPLEX_FLOAT32,
 									num_channels=1)
