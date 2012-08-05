@@ -90,7 +90,8 @@ class my_top_block(gr.top_block):
 		self.rate = options.rate
 		self.u = src
 		self.coeffs = gr.firdes.low_pass(1,self.rate,7000,1000)
-		self._filter_decimation = 4
+		self._filter_decimation = int(self.rate / 64.0e3)
+                print "%s: Sampling @ %f, decim @ %d" % (designator, self.rate, self._filter_decimation)
 		self.filter = gr.freq_xlating_fir_filter_ccf(self._filter_decimation, 
 													 self.coeffs, 
 													 freq,
