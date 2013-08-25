@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.3.1">
+  <compound refid="classais__extended__lms__dfe__ff" kind="class"><name>ais_extended_lms_dfe_ff</name>
+    <member refid="classais__extended__lms__dfe__ff_1a187ede760de569d8697524282b258286" kind="variable"><name>d_lambda_ff</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1af37c253b5e9d6dba84de014ae14f13b5" kind="variable"><name>d_lambda_fb</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a1d1beee9955f76720593647cedcee1f1" kind="variable"><name>d_ff_delayline</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a705a6eebf25c0175d7317067c873db85" kind="variable"><name>d_fb_delayline</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a9b750ad5bfa02158c66c6e79d657f010" kind="variable"><name>d_ff_taps</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a17ef18d6340261f031f1eb577da5305d" kind="variable"><name>d_fb_taps</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a5c1d0cd6bbf3af788ba5bdd0689837fa" kind="variable"><name>d_ff_index</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1aec3f4772ac3b336b251e3802c65e0528" kind="variable"><name>d_fb_index</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1ae2315f1fb026ce2410da2e11a5ea3adf" kind="variable"><name>d_resetcounter</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a23f691c8c7882a729102d963fc19bbdf" kind="friend"><name>ais_make_extended_lms_dfe_ff</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a9bf150a5b590f0ee3956ea1d07eb0559" kind="function"><name>ais_extended_lms_dfe_ff</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1a2bc4b5776511c71789c485c7a09786a6" kind="function"><name>reset</name></member>
+    <member refid="classais__extended__lms__dfe__ff_1ac9038b03ccb7e606b38e1348ac952bbc" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classais__freqest" kind="class"><name>ais_freqest</name>
+    <member refid="classais__freqest_1a39f8ff1d1ed360d4243c87e1a7f72c36" kind="variable"><name>d_offset</name></member>
+    <member refid="classais__freqest_1a96396dfbf58b5aeed44c1e57abaef526" kind="variable"><name>d_binsize</name></member>
+    <member refid="classais__freqest_1ab94f260d6beaf124b1251f5f3f385d9b" kind="friend"><name>ais_make_freqest</name></member>
+    <member refid="classais__freqest_1a69b15826116d2eb83ee13f5c44429592" kind="function"><name>ais_freqest</name></member>
+    <member refid="classais__freqest_1af28b5f15c65baff99bb416990d6fa721" kind="function"><name>~ais_freqest</name></member>
+    <member refid="classais__freqest_1aacdb42bc62c55bf5d0ab1fe1b1a93bb1" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classais__invert" kind="class"><name>ais_invert</name>
+    <member refid="classais__invert_1ac0621741617393154d780ae23baa6467" kind="friend"><name>ais_make_invert</name></member>
+    <member refid="classais__invert_1abf294c7411894887622cd15093c1288f" kind="function"><name>ais_invert</name></member>
+    <member refid="classais__invert_1a3d34fe54317a1949a3eefbc17a83676c" kind="function"><name>~ais_invert</name></member>
+    <member refid="classais__invert_1a01ea8abbdb7f118222fca40df9e49915" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classais__parse" kind="class"><name>ais_parse</name>
+    <member refid="classais__parse_1a87830f44fc815365695da60e337aa486" kind="variable"><name>d_payload</name></member>
+    <member refid="classais__parse_1ab5db52172ab6c56f40d57bf1a710404d" kind="variable"><name>d_queue</name></member>
+    <member refid="classais__parse_1a6d9705b16aab5f49a9fa43ee5c2b92e4" kind="variable"><name>d_designator</name></member>
+    <member refid="classais__parse_1a3323079b1b734434dc238aea5e0dab1d" kind="variable"><name>d_num_stoplost</name></member>
+    <member refid="classais__parse_1a4fb2c2ace00ba055d00b7177826245d0" kind="variable"><name>d_num_startlost</name></member>
+    <member refid="classais__parse_1a2232437b1ed97c6a392740319b7abd2f" kind="variable"><name>d_num_found</name></member>
+    <member refid="classais__parse_1ab00a296549a050c3c9e89d9b740b2a48" kind="friend"><name>ais_make_parse</name></member>
+    <member refid="classais__parse_1af80437a4a56ca54b26b1af69f5b74649" kind="function"><name>ais_parse</name></member>
+    <member refid="classais__parse_1afe524c14eb24fa37a888254ae5f60f2a" kind="function"><name>parse_data</name></member>
+    <member refid="classais__parse_1afaf5e3e5c15a0024873076c18cd7c9cd" kind="function"><name>reverse_bit_order</name></member>
+    <member refid="classais__parse_1a7c043fcbe507d83ab5c79956067d99fd" kind="function"><name>crc</name></member>
+    <member refid="classais__parse_1a3188a2fb7438501cc08cbda54c9585e5" kind="function"><name>unpack</name></member>
+    <member refid="classais__parse_1a2ee9227af4680c59ebfd0527d38586db" kind="function"><name>nmea_checksum</name></member>
+    <member refid="classais__parse_1a1692fa02c99c7e813986cba9ec9f23bb" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classais__unstuff" kind="class"><name>ais_unstuff</name>
+    <member refid="classais__unstuff_1a39afda9c550bac14521600ba757bb9b6" kind="variable"><name>d_consecutive</name></member>
+    <member refid="classais__unstuff_1ab48903c3684fe5334577c5190380608f" kind="friend"><name>ais_make_unstuff</name></member>
+    <member refid="classais__unstuff_1a443fb9ed55cdb5bfa1305f19640322b6" kind="function"><name>ais_unstuff</name></member>
+    <member refid="classais__unstuff_1a18c6e6f96612730257b9ef3740b65555" kind="function"><name>~ais_unstuff</name></member>
+    <member refid="classais__unstuff_1ab976df9730057bfb495a07a087bd2009" kind="function"><name>general_work</name></member>
+    <member refid="classais__unstuff_1aa17716f9b97516c53839096591789893" kind="function"><name>forecast</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="ais__extended__lms__dfe__ff_8h" kind="file"><name>ais_extended_lms_dfe_ff.h</name>
+    <member refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kind="typedef"><name>ais_extended_lms_dfe_ff_sptr</name></member>
+    <member refid="ais__extended__lms__dfe__ff_8h_1a23f691c8c7882a729102d963fc19bbdf" kind="function"><name>ais_make_extended_lms_dfe_ff</name></member>
+  </compound>
+  <compound refid="ais__freqest_8h" kind="file"><name>ais_freqest.h</name>
+    <member refid="ais__freqest_8h_1a899827900f9a86f2f8a4d35317173801" kind="typedef"><name>ais_freqest_sptr</name></member>
+    <member refid="ais__freqest_8h_1ab94f260d6beaf124b1251f5f3f385d9b" kind="function"><name>ais_make_freqest</name></member>
+  </compound>
+  <compound refid="ais__invert_8h" kind="file"><name>ais_invert.h</name>
+    <member refid="ais__invert_8h_1a8ff3cfb0a8222970159dffd593761bf8" kind="typedef"><name>ais_invert_sptr</name></member>
+    <member refid="ais__invert_8h_1ac0621741617393154d780ae23baa6467" kind="function"><name>ais_make_invert</name></member>
+  </compound>
+  <compound refid="ais__parse_8h" kind="file"><name>ais_parse.h</name>
+    <member refid="ais__parse_8h_1ab9e3ceac75172084eddaf022383bb5ba" kind="define"><name>FIELD_DELIM</name></member>
+    <member refid="ais__parse_8h_1a17a6b13c040ba8584a429ddaf165152d" kind="typedef"><name>ais_parse_sptr</name></member>
+    <member refid="ais__parse_8h_1ab00a296549a050c3c9e89d9b740b2a48" kind="function"><name>ais_make_parse</name></member>
+  </compound>
+  <compound refid="ais__unstuff_8h" kind="file"><name>ais_unstuff.h</name>
+    <member refid="ais__unstuff_8h_1ae878b5967523d2e941f3ff1fa15057f8" kind="typedef"><name>ais_unstuff_sptr</name></member>
+    <member refid="ais__unstuff_8h_1ab48903c3684fe5334577c5190380608f" kind="function"><name>ais_make_unstuff</name></member>
+  </compound>
+  <compound refid="gr__ais__api_8h" kind="file"><name>gr_ais_api.h</name>
+    <member refid="gr__ais__api_8h_1a3a6aafac9ddc921ebcaf23d4bba6f910" kind="define"><name>GR_AIS_API</name></member>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/fokko/Desktop/gr-ais-fokko/include</name>
+  </compound>
+</doxygenindex>

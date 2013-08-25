@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.3.1">
+  <compounddef id="classais__extended__lms__dfe__ff" kind="class" prot="public">
+    <compoundname>ais_extended_lms_dfe_ff</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">gr_sync_block</basecompoundref>
+    <includes refid="ais__extended__lms__dfe__ff_8h" local="no">ais_extended_lms_dfe_ff.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a187ede760de569d8697524282b258286" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ais_extended_lms_dfe_ff::d_lambda_ff</definition>
+        <argsstring></argsstring>
+        <name>d_lambda_ff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="21" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1af37c253b5e9d6dba84de014ae14f13b5" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ais_extended_lms_dfe_ff::d_lambda_fb</definition>
+        <argsstring></argsstring>
+        <name>d_lambda_fb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="22" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a1d1beee9955f76720593647cedcee1f1" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; ais_extended_lms_dfe_ff::d_ff_delayline</definition>
+        <argsstring></argsstring>
+        <name>d_ff_delayline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="23" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a705a6eebf25c0175d7317067c873db85" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; ais_extended_lms_dfe_ff::d_fb_delayline</definition>
+        <argsstring></argsstring>
+        <name>d_fb_delayline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="24" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a9b750ad5bfa02158c66c6e79d657f010" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; ais_extended_lms_dfe_ff::d_ff_taps</definition>
+        <argsstring></argsstring>
+        <name>d_ff_taps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="25" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a17ef18d6340261f031f1eb577da5305d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; ais_extended_lms_dfe_ff::d_fb_taps</definition>
+        <argsstring></argsstring>
+        <name>d_fb_taps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="26" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1a5c1d0cd6bbf3af788ba5bdd0689837fa" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int ais_extended_lms_dfe_ff::d_ff_index</definition>
+        <argsstring></argsstring>
+        <name>d_ff_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="27" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1aec3f4772ac3b336b251e3802c65e0528" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int ais_extended_lms_dfe_ff::d_fb_index</definition>
+        <argsstring></argsstring>
+        <name>d_fb_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="28" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__extended__lms__dfe__ff_1ae2315f1fb026ce2410da2e11a5ea3adf" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int ais_extended_lms_dfe_ff::d_resetcounter</definition>
+        <argsstring></argsstring>
+        <name>d_resetcounter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="29" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classais__extended__lms__dfe__ff_1a23f691c8c7882a729102d963fc19bbdf" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend <ref refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kindref="member">ais_extended_lms_dfe_ff_sptr</ref></type>
+        <definition>ais_extended_lms_dfe_ff_sptr ais_make_extended_lms_dfe_ff</definition>
+        <argsstring>(float lambda_ff, float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps)</argsstring>
+        <name>ais_make_extended_lms_dfe_ff</name>
+        <param>
+          <type>float</type>
+          <declname>lambda_ff</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lambda_fb</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fftaps</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fbtaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="19"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classais__extended__lms__dfe__ff_1a9bf150a5b590f0ee3956ea1d07eb0559" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ais_extended_lms_dfe_ff::ais_extended_lms_dfe_ff</definition>
+        <argsstring>(float lambda_ff, float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps)</argsstring>
+        <name>ais_extended_lms_dfe_ff</name>
+        <param>
+          <type>float</type>
+          <declname>lambda_ff</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lambda_fb</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fftaps</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fbtaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classais__extended__lms__dfe__ff_1a2bc4b5776511c71789c485c7a09786a6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ais_extended_lms_dfe_ff::reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classais__extended__lms__dfe__ff_1ac9038b03ccb7e606b38e1348ac952bbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ais_extended_lms_dfe_ff::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>gr_sync_block</label>
+      </node>
+      <node id="0">
+        <label>ais_extended_lms_dfe_ff</label>
+        <link refid="classais__extended__lms__dfe__ff"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>gr_sync_block</label>
+      </node>
+      <node id="2">
+        <label>ais_extended_lms_dfe_ff</label>
+        <link refid="classais__extended__lms__dfe__ff"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="17" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="16" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classais__extended__lms__dfe__ff_1a9bf150a5b590f0ee3956ea1d07eb0559" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>ais_extended_lms_dfe_ff</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a23f691c8c7882a729102d963fc19bbdf" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>ais_make_extended_lms_dfe_ff</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a705a6eebf25c0175d7317067c873db85" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_fb_delayline</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1aec3f4772ac3b336b251e3802c65e0528" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_fb_index</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a17ef18d6340261f031f1eb577da5305d" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_fb_taps</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a1d1beee9955f76720593647cedcee1f1" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_ff_delayline</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a5c1d0cd6bbf3af788ba5bdd0689837fa" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_ff_index</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a9b750ad5bfa02158c66c6e79d657f010" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_ff_taps</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1af37c253b5e9d6dba84de014ae14f13b5" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_lambda_fb</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a187ede760de569d8697524282b258286" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_lambda_ff</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1ae2315f1fb026ce2410da2e11a5ea3adf" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>d_resetcounter</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1a2bc4b5776511c71789c485c7a09786a6" prot="private" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>reset</name></member>
+      <member refid="classais__extended__lms__dfe__ff_1ac9038b03ccb7e606b38e1348ac952bbc" prot="public" virt="non-virtual"><scope>ais_extended_lms_dfe_ff</scope><name>work</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

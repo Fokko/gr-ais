@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.3.1">
+  <compounddef id="ais__extended__lms__dfe__ff_8h" kind="file">
+    <compoundname>ais_extended_lms_dfe_ff.h</compoundname>
+    <includes local="no">gr_sync_block.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>gr_sync_block.h</label>
+      </node>
+      <node id="0">
+        <label>/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h</label>
+        <link refid="ais_extended_lms_dfe_ff.h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classais__extended__lms__dfe__ff" prot="public">ais_extended_lms_dfe_ff</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classais__extended__lms__dfe__ff" kindref="compound">ais_extended_lms_dfe_ff</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;ais_extended_lms_dfe_ff&gt; ais_extended_lms_dfe_ff_sptr</definition>
+        <argsstring></argsstring>
+        <name>ais_extended_lms_dfe_ff_sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="7" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ais__extended__lms__dfe__ff_8h_1a23f691c8c7882a729102d963fc19bbdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kindref="member">ais_extended_lms_dfe_ff_sptr</ref></type>
+        <definition>ais_extended_lms_dfe_ff_sptr ais_make_extended_lms_dfe_ff</definition>
+        <argsstring>(float lambda_ff, float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps)</argsstring>
+        <name>ais_make_extended_lms_dfe_ff</name>
+        <param>
+          <type>float</type>
+          <declname>lambda_ff</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lambda_fb</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fftaps</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fbtaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h" line="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>INCLUDED_AIS_EXTENDED_LMS_DFE_FF_H</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INCLUDED_AIS_EXTENDED_LMS_DFE_FF_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gr_sync_block.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classais__extended__lms__dfe__ff" kindref="compound" tooltip="Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training...">ais_extended_lms_dfe_ff</ref>;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>boost::shared_ptr&lt;ais_extended_lms_dfe_ff&gt;<sp/><ref refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kindref="member">ais_extended_lms_dfe_ff_sptr</ref>;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><ref refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kindref="member">ais_extended_lms_dfe_ff_sptr</ref><sp/><ref refid="ais__extended__lms__dfe__ff_8h_1a23f691c8c7882a729102d963fc19bbdf" kindref="member">ais_make_extended_lms_dfe_ff</ref><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_ff,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_fb,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fftaps,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fbtaps);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classais__extended__lms__dfe__ff" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classais__extended__lms__dfe__ff" kindref="compound" tooltip="Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training...">ais_extended_lms_dfe_ff</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>gr_sync_block</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/><ref refid="ais__extended__lms__dfe__ff_8h_1af4a207e8f14da95eaee68afe12866a13" kindref="member">ais_extended_lms_dfe_ff_sptr</ref><sp/><ref refid="classais__extended__lms__dfe__ff_1a23f691c8c7882a729102d963fc19bbdf" kindref="member">ais_make_extended_lms_dfe_ff</ref><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_ff,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_fb,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fftaps,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fbtaps);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d_lambda_ff;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d_lambda_fb;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><sp/>d_ff_delayline;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><sp/>d_fb_delayline;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><sp/>d_ff_taps;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><sp/>d_fb_taps;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>d_ff_index;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>d_fb_index;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>d_resetcounter;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="classais__extended__lms__dfe__ff" kindref="compound" tooltip="Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training...">ais_extended_lms_dfe_ff</ref><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_ff,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_fb,<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fftaps,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>num_fbtaps);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);<sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classais__extended__lms__dfe__ff_1ac9038b03ccb7e606b38e1348ac952bbc" kindref="member">work</ref><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>noutput_items,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gr_vector_const_void_star<sp/>&amp;input_items,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gr_vector_void_star<sp/>&amp;output_items);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_extended_lms_dfe_ff.h"/>
+  </compounddef>
+</doxygen>

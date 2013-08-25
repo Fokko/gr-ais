@@ -218,15 +218,16 @@ def main():
 							except socket.error:
 								conns.remove(conn)
 								print "Connections: ", len(conns)
-					elif options.output is not False:
-						try:
-							sock.sendall(sentence + "\n")
-							print "TCP: " + sentence
-						except socket.error: # On error just open a new socket...
-							sock = socket.socket()
-							sock.connect((address, port))
 					else:
-						print sentence
+						if options.output is not False:
+							try:
+								sock.sendall(sentence + "\n")
+								print "TCP: " + sentence
+							except socket.error: # On error just open a new socket...
+								sock = socket.socket()
+								sock.connect((address, port))
+						else:
+							print sentence
 						sys.stdout.flush()
 
 			elif runner.done:

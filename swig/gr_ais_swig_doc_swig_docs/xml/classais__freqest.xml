@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.3.1">
+  <compounddef id="classais__freqest" kind="class" prot="public">
+    <compoundname>ais_freqest</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">gr_sync_block</basecompoundref>
+    <includes refid="ais__freqest_8h" local="no">ais_freqest.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classais__freqest_1a39f8ff1d1ed360d4243c87e1a7f72c36" prot="private" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int ais_freqest::d_offset</definition>
+        <argsstring></argsstring>
+        <name>d_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="69" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classais__freqest_1a96396dfbf58b5aeed44c1e57abaef526" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float ais_freqest::d_binsize</definition>
+        <argsstring></argsstring>
+        <name>d_binsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="70" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classais__freqest_1ab94f260d6beaf124b1251f5f3f385d9b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend <ref refid="ais__freqest_8h_1a899827900f9a86f2f8a4d35317173801" kindref="member">ais_freqest_sptr</ref></type>
+        <definition>ais_freqest_sptr ais_make_freqest</definition>
+        <argsstring>(int sample_rate, int data_rate, int fftlen)</argsstring>
+        <name>ais_make_freqest</name>
+        <param>
+          <type>int</type>
+          <declname>sample_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>data_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fftlen</declname>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classais__freqest" kindref="compound">ais_freqest</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classais__freqest" kindref="compound">ais_freqest</ref>&apos;s constructor is private. ais_make_freqest is the public interface for creating new instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classais__freqest_1a69b15826116d2eb83ee13f5c44429592" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ais_freqest::ais_freqest</definition>
+        <argsstring>(int sample_rate, int data_rate, int fftlen)</argsstring>
+        <name>ais_freqest</name>
+        <param>
+          <type>int</type>
+          <declname>sample_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>data_rate</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fftlen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="67"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classais__freqest_1af28b5f15c65baff99bb416990d6fa721" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ais_freqest::~ais_freqest</definition>
+        <argsstring>()</argsstring>
+        <name>~ais_freqest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classais__freqest_1aacdb42bc62c55bf5d0ab1fe1b1a93bb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ais_freqest::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="79"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>freqest a packed stream of bits. </para>    </briefdescription>
+    <detaileddescription>
+<para>This uses the preferred technique: subclassing gr_sync_block. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>gr_sync_block</label>
+      </node>
+      <node id="4">
+        <label>ais_freqest</label>
+        <link refid="classais__freqest"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="7">
+        <label>gr_sync_block</label>
+      </node>
+      <node id="6">
+        <label>ais_freqest</label>
+        <link refid="classais__freqest"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" line="60" bodyfile="/home/fokko/Desktop/gr-ais-fokko/include/ais_freqest.h" bodystart="59" bodyend="80"/>
+    <listofallmembers>
+      <member refid="classais__freqest_1a69b15826116d2eb83ee13f5c44429592" prot="private" virt="non-virtual"><scope>ais_freqest</scope><name>ais_freqest</name></member>
+      <member refid="classais__freqest_1ab94f260d6beaf124b1251f5f3f385d9b" prot="private" virt="non-virtual"><scope>ais_freqest</scope><name>ais_make_freqest</name></member>
+      <member refid="classais__freqest_1a96396dfbf58b5aeed44c1e57abaef526" prot="private" virt="non-virtual"><scope>ais_freqest</scope><name>d_binsize</name></member>
+      <member refid="classais__freqest_1a39f8ff1d1ed360d4243c87e1a7f72c36" prot="private" virt="non-virtual"><scope>ais_freqest</scope><name>d_offset</name></member>
+      <member refid="classais__freqest_1aacdb42bc62c55bf5d0ab1fe1b1a93bb1" prot="public" virt="non-virtual"><scope>ais_freqest</scope><name>work</name></member>
+      <member refid="classais__freqest_1af28b5f15c65baff99bb416990d6fa721" prot="public" virt="non-virtual"><scope>ais_freqest</scope><name>~ais_freqest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
