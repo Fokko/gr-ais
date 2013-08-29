@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -O3 -DNDEBUG   -shared -Wl,-soname,_gr_ais_swig.so -o _gr_ais_swig.so CMakeFiles/_gr_ais_swig.dir/gr_ais_swigPYTHON_wrap.cxx.o -lpython2.7 ../lib/libgnuradio-gr_ais.so /usr/local/lib/libgruel.so /usr/local/lib/libgnuradio-core.so -Wl,-rpath,/home/fokko/Desktop/gr-ais-fokko/lib:/usr/local/lib: 
