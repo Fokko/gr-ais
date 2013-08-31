@@ -39,6 +39,9 @@ foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
     list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/swig)
 endforeach(incdir)
 
+ list(APPEND GR_SWIG_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/include/ais)
+ list(APPEND GR_SWIG_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/lib)
+ 
 set(SWIG_LINK_LIBRARIES '/usr/local/lib')
 
 set(GR_SWIG_LIBRARIES gnuradio-gr_ais)

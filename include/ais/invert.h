@@ -29,8 +29,6 @@ namespace gr {
 
 namespace ais {
 
-class invert;
-
 /*!
  * \brief invert a packed stream of bits.
  * \ingroup block
@@ -40,12 +38,12 @@ class invert;
  */
 class invert: virtual public gr::sync_block {
 public:
-	~invert();  // public destructor
-
-	// Where all the action really happens
-
-	int work(int noutput_items, gr_vector_const_void_star &input_items,
+	typedef boost::shared_ptr<invert> invert_sptr;
+	static invert_sptr make_invert();
+	virtual int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
+
+	invert();
 };
 }
 }

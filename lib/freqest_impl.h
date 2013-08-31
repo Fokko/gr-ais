@@ -24,57 +24,20 @@
 #define freqest_H_IMPL
 
 #include <gnuradio/sync_block.h>
+#include <../include/ais/freqest.h>
 
-class freqest;
-
-/*
- * We use boost::shared_ptr's instead of raw pointers for all access
- * to gr_blocks (and many other data structures).  The shared_ptr gets
- * us transparent reference counting, which greatly simplifies storage
- * management issues.  This is especially helpful in our hybrid
- * C++ / Python system.
- *
- * See http://www.boost.org/libs/smart_ptr/smart_ptr.htm
- *
- * As a convention, the _sptr suffix indicates a boost::shared_ptr
- */
-typedef boost::shared_ptr<freqest> freqest_sptr;
-
-/*!
- * \brief Return a shared_ptr to a new instance of freqest.
- *
- * To avoid accidental use of raw pointers, freqest's
- * constructor is private.  make_freqest is the public
- * interface for creating new instances.
- */
-freqest_sptr make_freqest(int sample_rate, int data_rate, int fftlen);
-
-/*!
- * \brief freqest a packed stream of bits.
- * \ingroup block
- *
- *
- * This uses the preferred technique: subclassing gr_sync_block.
- */
 namespace gr {
 namespace ais {
 class freqest_impl: public freqest {
 private:
-	// The friend declaration allows make_freqest to
-	// access the private constructor.
-
-	friend freqest_sptr make_freqest(int sample_rate, int data_rate,
-			int fftlen);
-
-	freqest(int sample_rate, int data_rate, int fftlen); // private constructor
-
-	unsigned int d_offset;
-	float d_binsize;
 
 public:
-	~freqest();  // public destructor
+	freqest_impl(int sample_rate, int data_rate, int fftlen); // private constructor
 
-	// Where all the action really happens
+	static const int MIN_IN = 1;    // mininum number of input streams
+	static const int MAX_IN = 1;    // maximum number of input streams
+	static const int MIN_OUT = 1;   // minimum number of output streams
+	static const int MAX_OUT = 1;   // maximum number of output streams
 
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);

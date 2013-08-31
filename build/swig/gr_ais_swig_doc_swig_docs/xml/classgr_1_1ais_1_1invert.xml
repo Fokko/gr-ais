@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classgr_1_1ais_1_1invert" kind="class" prot="public">
+    <compoundname>gr::ais::invert</compoundname>
+    <includes refid="invert_8h" local="no">invert.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1ais_1_1invert_1a9d4bd648e208566d32bbdc937c8ff0ed" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1ais_1_1invert" kindref="compound">invert</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;invert&gt; gr::ais::invert::invert_sptr</definition>
+        <argsstring></argsstring>
+        <name>invert_sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/invert.h" line="41" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/invert.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1invert_1abb0ed5e1b775938d27aa0040c0d27721" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1ais_1_1invert_1a9d4bd648e208566d32bbdc937c8ff0ed" kindref="member">invert_sptr</ref></type>
+        <definition>static invert_sptr gr::ais::invert::make_invert</definition>
+        <argsstring>()</argsstring>
+        <name>make_invert</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/invert.h" line="42"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1invert_1a0a2b19a42826477131bf76c46d13df30" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int gr::ais::invert::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/invert.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1ais_1_1invert_1a258953d79e3fd5410b6ba6edb5cd3286" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::ais::invert::invert</definition>
+        <argsstring>()</argsstring>
+        <name>invert</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/invert.h" line="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>invert a packed stream of bits. </para>    </briefdescription>
+    <detaileddescription>
+<para>This uses the preferred technique: subclassing gr_sync_block. </para>    </detaileddescription>
+    <location file="/home/fokko/Desktop/gr-ais/include/ais/invert.h" line="39" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/invert.h" bodystart="39" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classgr_1_1ais_1_1invert_1a258953d79e3fd5410b6ba6edb5cd3286" prot="public" virt="non-virtual"><scope>gr::ais::invert</scope><name>invert</name></member>
+      <member refid="classgr_1_1ais_1_1invert_1a9d4bd648e208566d32bbdc937c8ff0ed" prot="public" virt="non-virtual"><scope>gr::ais::invert</scope><name>invert_sptr</name></member>
+      <member refid="classgr_1_1ais_1_1invert_1abb0ed5e1b775938d27aa0040c0d27721" prot="public" virt="non-virtual"><scope>gr::ais::invert</scope><name>make_invert</name></member>
+      <member refid="classgr_1_1ais_1_1invert_1a0a2b19a42826477131bf76c46d13df30" prot="public" virt="virtual"><scope>gr::ais::invert</scope><name>work</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classgr_1_1ais_1_1extended__lms__dfe__ff" kind="class" prot="public">
+    <compoundname>gr::ais::extended_lms_dfe_ff</compoundname>
+    <includes refid="extended__lms__dfe__ff_8h" local="no">extended_lms_dfe_ff.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1ais_1_1extended__lms__dfe__ff_1a85e9c2d5a6e607bed83253fc1c946934" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1ais_1_1extended__lms__dfe__ff" kindref="compound">extended_lms_dfe_ff</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;extended_lms_dfe_ff&gt; gr::ais::extended_lms_dfe_ff::extended_lms_dfe_ff_sptr</definition>
+        <argsstring></argsstring>
+        <name>extended_lms_dfe_ff_sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" line="23" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1extended__lms__dfe__ff_1a256f5bab2bafa47471ec2051d5731667" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a85e9c2d5a6e607bed83253fc1c946934" kindref="member">extended_lms_dfe_ff_sptr</ref></type>
+        <definition>static extended_lms_dfe_ff_sptr gr::ais::extended_lms_dfe_ff::make_extended_lms_dfe_ff</definition>
+        <argsstring>(float lambda_ff, float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps)</argsstring>
+        <name>make_extended_lms_dfe_ff</name>
+        <param>
+          <type>float</type>
+          <declname>lambda_ff</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>lambda_fb</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fftaps</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>num_fbtaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" line="26"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1extended__lms__dfe__ff_1a39aff3cf790233e45088ca01f25fd688" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int gr::ais::extended_lms_dfe_ff::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" line="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" line="21" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/extended_lms_dfe_ff.h" bodystart="20" bodyend="31"/>
+    <listofallmembers>
+      <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a85e9c2d5a6e607bed83253fc1c946934" prot="public" virt="non-virtual"><scope>gr::ais::extended_lms_dfe_ff</scope><name>extended_lms_dfe_ff_sptr</name></member>
+      <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a256f5bab2bafa47471ec2051d5731667" prot="public" virt="non-virtual"><scope>gr::ais::extended_lms_dfe_ff</scope><name>make_extended_lms_dfe_ff</name></member>
+      <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a39aff3cf790233e45088ca01f25fd688" prot="public" virt="virtual"><scope>gr::ais::extended_lms_dfe_ff</scope><name>work</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

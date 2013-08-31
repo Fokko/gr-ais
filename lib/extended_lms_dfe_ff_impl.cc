@@ -8,27 +8,14 @@
 #include <gr_ais_api_impl.h>
 #include <extended_lms_dfe_ff_impl.h>
 
-
 namespace gr {
 namespace ais {
 
-float slice(float val) {
-	if (val > 0)
-		return 1;
-	else
-		return -1;
-}
-
-extended_lms_dfe_ff_sptr extended_lms_dfe_ff_impl::make_extended_lms_dfe_ff(
-		float lambda_ff, float lambda_fb, unsigned int num_fftaps,
-		unsigned int num_fbtaps) {
-	return extended_lms_dfe_ff_sptr(
-			new extended_lms_dfe_ff(lambda_ff, lambda_fb, num_fftaps,
-					num_fbtaps));
-}
 
 extended_lms_dfe_ff_impl::extended_lms_dfe_ff_impl(float lambda_ff,
-		float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps) :
+		float lambda_fb,
+		unsigned int num_fftaps,
+		unsigned int num_fbtaps) :
 		gr::sync_block("extended_lms_dfe_ff",
 				gr::io_signature::make2(2, 2, sizeof(float), sizeof(char)),
 				gr::io_signature::make(1, 1, sizeof(float))), d_lambda_ff(
@@ -44,6 +31,21 @@ extended_lms_dfe_ff_impl::extended_lms_dfe_ff_impl(float lambda_ff,
 	gr_zero_vector(d_fb_delayline);
 
 	set_output_multiple(300);
+}
+
+extended_lms_dfe_ff::extended_lms_dfe_ff_sptr extended_lms_dfe_ff::make_extended_lms_dfe_ff(
+		float lambda_ff, float lambda_fb, unsigned int num_fftaps,
+		unsigned int num_fbtaps) {
+	return extended_lms_dfe_ff_sptr(
+			new extended_lms_dfe_ff_impl(lambda_ff, lambda_fb, num_fftaps,
+					num_fbtaps));
+}
+
+float slice(float val) {
+	if (val > 0)
+		return 1;
+	else
+		return -1;
 }
 
 void extended_lms_dfe_ff_impl::reset(void) {

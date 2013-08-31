@@ -30,38 +30,25 @@
 #include "config.h"
 #endif
 
-#include <unstuff.h>
+#include <unstuff_impl.h>
 #include <gnuradio/io_signature.h>
-#include <gr_api.h>
+#include <gr_ais_api_impl.h>
 
 namespace gr {
-namespace foo {
+namespace ais {
+int d_consecutive;
 /*
  * Create a new instance of unstuff and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
-GR_API unstuff_sptr make_unstuff() {
+unstuff::unstuff_sptr unstuff::make_unstuff() {
 	return unstuff_sptr(new unstuff());
 }
 
 /*
- * Specify constraints on number of input and output streams.
- * This info is used to construct the input and output signatures
- * (2nd & 3rd args to gr_block's constructor).  The input and
- * output signatures are used by the runtime system to
- * check that a valid number and type of inputs and outputs
- * are connected to this block.  In this case, we accept
- * only 1 input and 1 output.
- */
-static const int MIN_IN = 1;    // mininum number of input streams
-static const int MAX_IN = 1;    // maximum number of input streams
-static const int MIN_OUT = 1;   // minimum number of output streams
-static const int MAX_OUT = 1;   // maximum number of output streams
-
-/*
  * The private constructor
  */
-unstuff::unstuff() :
+unstuff_impl::unstuff_impl() :
 		gr::block("unstuff",
 				gr::io_signature::make(MIN_IN, MAX_IN, sizeof(char)),
 				gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof(char))) {
@@ -69,13 +56,6 @@ unstuff::unstuff() :
 	d_consecutive = 0;
 	set_output_multiple(1000);
 	//printf("Calling constructor\n");
-}
-
-/*
- * Our virtual destructor.
- */
-unstuff::~unstuff() {
-	// nothing else required in this example
 }
 
 void unstuff::forecast(int noutput_items, gr_vector_int &ninput_items_required) //estimate number of input samples required for noutput_items samples

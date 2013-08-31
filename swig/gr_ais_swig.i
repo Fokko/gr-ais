@@ -5,11 +5,16 @@
 %include "gnuradio.i"			// the common stuff
 
 %{
-#include "ais_invert.h"
-#include "ais_unstuff.h"
-#include "ais_parse.h"
-#include "ais_extended_lms_dfe_ff.h"
-#include "ais_freqest.h"
+#include "invert.h"
+#include "invert.h_impl"
+#include "unstuff.h"
+#include "unstuff.h_impl"
+#include "parse.h"
+#include "parse.h_impl"
+#include "extended_lms_dfe_ff.h"
+#include "extended_lms_dfe_ff_impl.h"
+#include "freqest.h"
+#include "freqest_impl.h"
 %}
 
 //load generated python docstrings

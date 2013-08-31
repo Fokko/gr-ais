@@ -32,15 +32,15 @@
 
 #include <invert_impl.h>
 #include <gnuradio/io_signature.h>
-#include <gr_api.h>
+#include <gr_ais_api_impl.h>
 
 namespace gr {
-namespace foo {
+namespace ais {
 /*
  * Create a new instance of invert and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
-GR_API invert_sptr make_invert() {
+invert::invert_sptr invert::make_invert() {
 	return invert_sptr(new invert());
 }
 
@@ -61,17 +61,10 @@ static const int MAX_OUT = 1;   // maximum number of output streams
 /*
  * The private constructor
  */
-invert::invert() :
+invert_impl::invert_impl() :
 		gr::sync_block("invert",
 				gr::io_signature::make(MIN_IN, MAX_IN, sizeof(char)),
 				gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof(char))) {
-	// nothing else required in this example
-}
-
-/*
- * Our virtual destructor.
- */
-invert::~invert() {
 	// nothing else required in this example
 }
 
@@ -85,7 +78,6 @@ int invert::work(int noutput_items, gr_vector_const_void_star &input_items,
 			out[i] = 0;
 		else if (in[i] == 0)
 			out[i] = 1;
-//          else printf("Non-binary input to invert()\n"); //should probably flag an error somewhere
 	}
 
 	// Tell runtime system how many output items we produced.

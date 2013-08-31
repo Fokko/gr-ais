@@ -31,20 +31,28 @@
 #include "config.h"
 #endif
 
-#include <parse.h>
+#include <parse_impl.h>
 #include <gnuradio/io_signature.h>
 #include <ctype.h>
 #include <iostream>
 #include <iomanip>
 #include <boost/foreach.hpp>
 #include <gnuradio/tags.h>
-#include <gr_api.h>
+#include <gr_ais_api_impl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 namespace gr {
-namespace foo {
+namespace ais {
+
+
+int d_num_stoplost;
+int d_num_startlost;
+int d_num_found;
+
+double d_qth_lon; // your current longitude -180 (West) -> 180 (East)
+double d_qth_lat; // your current latitude -90 (South) -> 90 (North)
 
 const char *DEG_SIGN = "\xc2\xb0";
 const double DTR = M_PI / 180.0;
@@ -56,12 +64,12 @@ static const char ascii_table[64] = { '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
 		'$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1',
 		'2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?' };
 
-GR_API parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
+parse::parse_sptr parse::make_parse(gr::msg_queue::sptr queue, char designator,
 		int verbose, double lon, double lat) {
-	return parse_sptr(new parse(queue, designator, verbose, lon, lat));
+	return parse_sptr(new parse_impl(queue, designator, verbose, lon, lat));
 }
 
-parse::parse(gr::msg_queue::sptr queue, char designator, int verbose,
+parse_impl::parse_impl(gr::msg_queue::sptr queue, char designator, int verbose,
 		double lon, double lat) :
 		gr::sync_block("parse", gr::io_signature::make(1, 1, sizeof(char)),
 				gr::io_signature::make(0, 0, 0)), d_queue(queue), d_designator(
@@ -89,7 +97,7 @@ parse::parse(gr::msg_queue::sptr queue, char designator, int verbose,
 	set_output_multiple(1000);
 }
 
-int parse::work(int noutput_items, gr_vector_const_void_star &input_items,
+int parse_impl::work(int noutput_items, gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items) {
 	const char *in = (const char *) input_items[0];
 
@@ -150,7 +158,7 @@ int parse::work(int noutput_items, gr_vector_const_void_star &input_items,
 	return (end_mark - abs_sample_cnt);
 }
 
-void parse::parse_data(char *data, int len) {
+void parse_impl::parse_data(char *data, int len) {
 	d_payload.str("");
 
 	char asciidata[255]; // 6 bits per ascii char (168/6 = 28 chars (bytes))
@@ -208,7 +216,7 @@ void parse::parse_data(char *data, int len) {
 
  **/
 
-void parse::decode_ais(char *ascii, int len, bool crc_ok) {
+void parse_impl::decode_ais(char *ascii, int len, bool crc_ok) {
 	unsigned char *data;
 	unsigned long value;
 	int report_type, i;
@@ -242,7 +250,7 @@ void parse::decode_ais(char *ascii, int len, bool crc_ok) {
 			d_designator == 'A' ? 161.975 : 162.025);
 	d_payload << str;
 
-	value = value(data, 8, 30);
+	value = parse_impl::value(data, 8, 30);
 	sprintf(str, "Mobile Marine Service Identifier: %d\n", value);
 	d_payload << str;
 
@@ -403,7 +411,7 @@ void parse::decode_ais(char *ascii, int len, bool crc_ok) {
 	d_queue->handle(msg);
 }
 
-void parse::decode_sar_aircraft_position(unsigned char *ais, int len,
+void parse_impl::decode_sar_aircraft_position(unsigned char *ais, int len,
 		char *str) {
 	if ((len * 6) != 168) {
 		if (d_verbose & V_DEBUG_2)
@@ -416,7 +424,7 @@ void parse::decode_sar_aircraft_position(unsigned char *ais, int len,
 
 	unsigned int v1;
 
-	v1 = value(ais, 38, 12);
+	v1 = parse_impl::value(ais, 38, 12);
 	if (v1 != 4095) {
 		sprintf(str, "Altitude: %d m %s", v1,
 				v1 == 4095 ? "or higher\n" : "\n");
@@ -428,7 +436,7 @@ void parse::decode_sar_aircraft_position(unsigned char *ais, int len,
 	print_course_over_ground(ais, 116, str);
 }
 
-void parse::decode_static_and_voyage_data(unsigned char *ais, int len,
+void parse_impl::decode_static_and_voyage_data(unsigned char *ais, int len,
 		char *str) {
 	// 424/6 = 70.6667
 	if ((len * 6) != 420) {
@@ -442,32 +450,32 @@ void parse::decode_static_and_voyage_data(unsigned char *ais, int len,
 
 	unsigned int v1;
 
-	sprintf(str, "AIS version: %d\n", value(ais, 38, 2));
+	sprintf(str, "AIS version: %d\n", parse_impl::value(ais, 38, 2));
 	d_payload << str;
 
-	sprintf(str, "IMO Number: %d\n", value(ais, 40, 30));
+	sprintf(str, "IMO Number: %d\n", parse_impl::value(ais, 40, 30));
 	d_payload << str;
 
 	d_payload << "Call Sign: " << get_text(ais, 70, 7, str) << "\n";
 
 	print_ship_properties(ais, 112, str);
 
-	sprintf(str, "Draught: %.1f m\n", ((double) value(ais, 294, 8)) / 10.0);
+	sprintf(str, "Draught: %.1f m\n", ((double) parse_impl::value(ais, 294, 8)) / 10.0);
 	d_payload << str;
 
 	print_position_fix_type(ais, 270, str);
 
 	d_payload << "Destination: " << get_text(ais, 302, 20, str) << "\n";
 
-	v1 = value(ais, 274, 4);
+	v1 = parse_impl::value(ais, 274, 4);
 	if (v1 != 0) {
 		sprintf(str, "Estimated Time of Arrival %02d-%02d %02d:%02d UTC\n", v1,
-				value(ais, 278, 5), value(ais, 283, 5), value(ais, 288, 6));
+				parse_impl::value(ais, 278, 5), parse_impl::value(ais, 283, 5),parse_impl:: value(ais, 288, 6));
 		d_payload << str;
 	}
 }
 
-void parse::decode_position_123A(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_position_123A(unsigned char *ais, int len, char *str) {
 	if ((len * 6) != 168) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be 168 bit\n",
@@ -484,7 +492,7 @@ void parse::decode_position_123A(unsigned char *ais, int len, char *str) {
 
 	print_navigation_status(ais, 38, str);
 
-	value = value(ais, 42, 8);
+	value = parse_impl::value(ais, 42, 8);
 	i = (signed char) value;
 
 	error = false;
@@ -509,17 +517,17 @@ void parse::decode_position_123A(unsigned char *ais, int len, char *str) {
 	print_position(ais, 61, str, "vessel");
 	print_course_over_ground(ais, 116, str);
 
-	value = value(ais, 128, 9);
+	value = parse_impl::value(ais, 128, 9);
 	if (value >= 0 && value < 360) {
 		sprintf(str, "True Heading: %d%s\n", value, DEG_SIGN);
 		d_payload << str;
 	}
 
-	value = value(ais, 137, 6);
+	value = parse_impl::value(ais, 137, 6);
 	sprintf(str, "Time Stamp: %d seconds\n", value, DEG_SIGN);
 	d_payload << str;
 
-	value = value(ais, 143, 2);
+	value = parse_impl::value(ais, 143, 2);
 	if (value) {
 		if (value == 1)
 			sprintf(str, "Maneuver Indicator: No special maneuver\n");
@@ -533,7 +541,7 @@ void parse::decode_position_123A(unsigned char *ais, int len, char *str) {
 	print_raim(ais, 148, str);
 }
 
-void parse::decode_class_b_position_report(unsigned char *ais, int len,
+void parse_impl::decode_class_b_position_report(unsigned char *ais, int len,
 		char *str, bool extended) {
 	int i = extended ? 312 : 168;
 
@@ -552,60 +560,60 @@ void parse::decode_class_b_position_report(unsigned char *ais, int len,
 	print_position(ais, 57, str, "vessel");
 	print_course_over_ground(ais, 112, str);
 
-	value = value(ais, 124, 9);
+	value = parse_impl::value(ais, 124, 9);
 	if (value >= 0 && value < 360) {
 		sprintf(str, "True Heading: %d%s\n", value, DEG_SIGN);
 		d_payload << str;
 	}
 
-	value = value(ais, 133, 6);
+	value = parse_impl::value(ais, 133, 6);
 	sprintf(str, "Time Stamp: %d UTC seconds\n", value);
 	d_payload << str;
 
 	if (extended) {
 		print_raim(ais, 305, str);
 
-		value = value(ais, 307, 1);
+		value = parse_impl::value(ais, 307, 1);
 		sprintf(str, "Station Mode: %s\n",
 				value == 0 ?
 						"Station operating in autonomous and continuous mode" :
 						"Station operating in assigned mode");
 		d_payload << str;
 	} else {
-		value = value(ais, 141, 1);
+		value = parse_impl::value(ais, 141, 1);
 		sprintf(str, "Carrier Sense Unit: %s\n",
 				value == 0 ? "Class B SOTDMA" : "Class B Carrier Sense");
 		d_payload << str;
 
-		value = value(ais, 142, 1);
+		value = parse_impl::value(ais, 142, 1);
 		sprintf(str, "Display: %s\n",
 				value == 0 ?
 						"No display available. Not capable of displaying Message 12 and 14" :
 						"Equipped with integrated display displaying Message 12 and 14");
 		d_payload << str;
 
-		value = value(ais, 143, 1);
+		value = parse_impl::value(ais, 143, 1);
 		sprintf(str, "VHF Digital Selective Calling: %s\n",
 				value == 0 ?
 						"Not equipped" :
 						"Equipped with DSC function (dedicated or time-shared)");
 		d_payload << str;
 
-		value = value(ais, 144, 1);
+		value = parse_impl::value(ais, 144, 1);
 		sprintf(str, "VHF Band capability: %s\n",
 				value == 0 ?
 						"Capable of operating over the upper 525 kHz band of the marine band" :
 						"Capable of operating over the whole marine band");
 		d_payload << str;
 
-		value = value(ais, 145, 1);
+		value = parse_impl::value(ais, 145, 1);
 		sprintf(str, "Message 22 capability: %s\n",
 				value == 0 ?
 						"No frequency management via Message 22, operating on AIS1, AIS2 only" :
 						"Frequency management via Message 22");
 		d_payload << str;
 
-		value = value(ais, 146, 1);
+		value = parse_impl::value(ais, 146, 1);
 		sprintf(str, "Station Mode: %s\n",
 				value == 0 ?
 						"Station operating in autonomous and continuous mode" :
@@ -616,7 +624,7 @@ void parse::decode_class_b_position_report(unsigned char *ais, int len,
 	}
 }
 
-void parse::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
 	if (len < 45) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be >272 bit\n",
@@ -629,7 +637,7 @@ void parse::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
 	unsigned long v, v2;
 	bool error = false;
 
-	v = value(ais, 38, 5);
+	v = parse_impl::value(ais, 38, 5);
 	switch (v) {
 	case 0:
 		strcpy(str, "Not specified\n");
@@ -742,12 +750,12 @@ void parse::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
 	 The Off-Position Indicator is for floating Aids-to-Navigation only:
 	 0 means on position; 1 means off position. Only valid if UTC second is equal to or below 59.
 	 */
-	v = value(ais, 253, 6);
+	v = parse_impl::value(ais, 253, 6);
 	if (v < 60) {
 		sprintf(str, "UTC Second: %d\n", v);
 		d_payload << str;
 
-		v = value(ais, 259, 1);
+		v = parse_impl::value(ais, 259, 1);
 		sprintf(str, "Off-Position Indicator: %s position\n",
 				v == 0 ? "On" : "Off");
 		d_payload << str;
@@ -759,7 +767,7 @@ void parse::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
 	 The Virtual Aid flag is interpreted as follows: 0 = default = real Aid to Navigation at indicated position;
 	 1 = virtual Aid to Navigation simulated by nearby AIS station.
 	 */
-	v = value(ais, 269, 1);
+	v = parse_impl::value(ais, 269, 1);
 	sprintf(str, "Virtual Aid to Navigation: %s\n",
 			v == 0 ?
 					"Real Aid to Navigation at indicated position" :
@@ -767,7 +775,7 @@ void parse::decode_aid_to_navigation(unsigned char *ais, int len, char *str) {
 	d_payload << str;
 }
 
-void parse::decode_static_data_msg(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_static_data_msg(unsigned char *ais, int len, char *str) {
 	if (len != 26 || len != 28) {
 		if (d_verbose & V_DEBUG_2)
 			printf(
@@ -780,7 +788,7 @@ void parse::decode_static_data_msg(unsigned char *ais, int len, char *str) {
 
 	unsigned long v;
 
-	int part = value(ais, 38, 2) & 0x01; // class A = 0, class B = 1
+	int part = parse_impl::value(ais, 38, 2) & 0x01; // class A = 0, class B = 1
 
 	if (part == 0)
 		d_payload << "Ship Name: " << get_text(ais, 40, 20, str) << "\n";
@@ -795,7 +803,7 @@ void parse::decode_static_data_msg(unsigned char *ais, int len, char *str) {
 	}
 }
 
-void parse::decode_long_range_msg(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_long_range_msg(unsigned char *ais, int len, char *str) {
 	if (len != 16) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be 96 bit\n",
@@ -809,7 +817,7 @@ void parse::decode_long_range_msg(unsigned char *ais, int len, char *str) {
 	print_navigation_status(ais, 40, str);
 	print_position(ais, 44, str, "vessel");
 
-	unsigned long v = value(ais, 79, 6);
+	unsigned long v = parse_impl::value(ais, 79, 6);
 	if (v < 63) {
 		sprintf(str, "Speed Over Ground: %d knots\n");
 		d_payload << str;
@@ -817,15 +825,15 @@ void parse::decode_long_range_msg(unsigned char *ais, int len, char *str) {
 
 	print_course_over_ground(ais, 85, str);
 
-	v = value(ais, 94, 1);
+	v = parse_impl::value(ais, 94, 1);
 	sprintf(str, "GNSS Position status: %s GNSS position\n",
 			v == 0 ? "Current" : "Not");
 	d_payload << str;
 }
 
-void parse::print_navigation_status(unsigned char *ais, int bit_pos,
+void parse_impl::print_navigation_status(unsigned char *ais, int bit_pos,
 		char *str) {
-	int value = value(ais, bit_pos, 4);
+	int value = parse_impl::value(ais, bit_pos, 4);
 	bool error = false;
 
 	switch (value) {
@@ -865,9 +873,9 @@ void parse::print_navigation_status(unsigned char *ais, int bit_pos,
 		d_payload << str;
 }
 
-void parse::print_ship_type(unsigned char *ais, int bit_pos, char *str) {
+void parse_impl::print_ship_type(unsigned char *ais, int bit_pos, char *str) {
 	bool error = false;
-	int v1 = value(ais, bit_pos, 8);
+	int v1 = parse_impl::value(ais, bit_pos, 8);
 
 	switch (v1) {
 	case 20:
@@ -1001,15 +1009,15 @@ void parse::print_ship_type(unsigned char *ais, int bit_pos, char *str) {
 		d_payload << "Ship Type: " << str;
 }
 
-void parse::print_raim(unsigned char *ais, int bit_pos, char *str) {
-	int i = value(ais, bit_pos, 1);
+void parse_impl::print_raim(unsigned char *ais, int bit_pos, char *str) {
+	int i = parse_impl::value(ais, bit_pos, 1);
 
 	sprintf(str, "Receiver Autonomous Integrity Monitoring: %s\n",
 			i == 0 ? "RAIM not in use" : "RAIM in use");
 	d_payload << str;
 }
 
-void parse::decode_base_station(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_base_station(unsigned char *ais, int len, char *str) {
 	if ((len * 6) != 168) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be 168 bit\n",
@@ -1034,7 +1042,7 @@ void parse::decode_base_station(unsigned char *ais, int len, char *str) {
 	}
 }
 
-void parse::decode_utc_inquiry(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_utc_inquiry(unsigned char *ais, int len, char *str) {
 	if (len != 12) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be 72 bit\n",
@@ -1048,7 +1056,7 @@ void parse::decode_utc_inquiry(unsigned char *ais, int len, char *str) {
 	d_payload << str;
 }
 
-void parse::decode_addr_ack_safety_msg(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_addr_ack_safety_msg(unsigned char *ais, int len, char *str) {
 	if (len <= 12) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be >72 bit\n",
@@ -1065,7 +1073,7 @@ void parse::decode_addr_ack_safety_msg(unsigned char *ais, int len, char *str) {
 	d_payload << "Message: " << get_text(ais, 72, len - 20, str) << "\n";
 }
 
-void parse::decode_safety_broadcast_msg(unsigned char *ais, int len,
+void parse_impl::decode_safety_broadcast_msg(unsigned char *ais, int len,
 		char *str) {
 	if (len < 7) {
 		if (d_verbose & V_DEBUG_2)
@@ -1080,7 +1088,7 @@ void parse::decode_safety_broadcast_msg(unsigned char *ais, int len,
 	d_payload << "Message: " << get_text(ais, 40, len - 7, str) << "\n";
 }
 
-void parse::decode_interrogation(unsigned char *ais, int len, char *str) {
+void parse_impl::decode_interrogation(unsigned char *ais, int len, char *str) {
 	if (len < 14) {
 		if (d_verbose & V_DEBUG_2)
 			printf("Erroneous report size %d bit, it should be 88-160 bit\n",
@@ -1108,7 +1116,7 @@ void parse::decode_interrogation(unsigned char *ais, int len, char *str) {
 	d_payload << str;
 }
 
-void parse::decode_assignment_mode_command(unsigned char *ais, int len,
+void parse_impl::decode_assignment_mode_command(unsigned char *ais, int len,
 		char *str) {
 	if (!(len == 16 || len == 24)) {
 		if (d_verbose & V_DEBUG_2)
@@ -1136,7 +1144,7 @@ void parse::decode_assignment_mode_command(unsigned char *ais, int len,
 	}
 }
 
-void parse::decode_dgnss_broadcast_bin_msg(unsigned char *ais, int len,
+void parse_impl::decode_dgnss_broadcast_bin_msg(unsigned char *ais, int len,
 		char *str) {
 	if (len < 13) {
 		if (d_verbose & V_DEBUG_2)
@@ -1164,7 +1172,7 @@ void parse::decode_dgnss_broadcast_bin_msg(unsigned char *ais, int len,
 	print_payload_hex(ais, 80, len - 13, "DGNSS correction data (hex):\n");
 }
 
-void parse::print_payload_hex(unsigned char *ais, int bit_pos, int len,
+void parse_impl::print_payload_hex(unsigned char *ais, int bit_pos, int len,
 		const char *data_desc) {
 	int i, hex;
 
@@ -1184,9 +1192,9 @@ void parse::print_payload_hex(unsigned char *ais, int bit_pos, int len,
 	}
 }
 
-void parse::print_speed_over_ground(unsigned char *ais, int bit_pos, char *str,
+void parse_impl::print_speed_over_ground(unsigned char *ais, int bit_pos, char *str,
 		bool ship) {
-	int value = value(ais, bit_pos, 10);
+	int value = parse_impl::value(ais, bit_pos, 10);
 	double speed = ship ? (((double) value) / 10.0) : value;
 
 	if (value != 1023) {
@@ -1197,9 +1205,9 @@ void parse::print_speed_over_ground(unsigned char *ais, int bit_pos, char *str,
 	}
 }
 
-void parse::print_course_over_ground(unsigned char *ais, int bit_pos,
+void parse_impl::print_course_over_ground(unsigned char *ais, int bit_pos,
 		char *str) {
-	unsigned int value = value(ais, bit_pos, 12);
+	unsigned int value = parse_impl::value(ais, bit_pos, 12);
 
 	if (value != 3600) {
 		sprintf(str, "Course Over Ground: %.1f%s\n", ((double) value) / 10.0,
@@ -1208,18 +1216,18 @@ void parse::print_course_over_ground(unsigned char *ais, int bit_pos,
 	}
 }
 
-void parse::get_lonlat(unsigned char *ais, int bit_pos, double *lon,
+void parse_impl::get_lonlat(unsigned char *ais, int bit_pos, double *lon,
 		double *lat) {
 	unsigned int v;
 
-	v = value(ais, bit_pos, 28);
+	v = parse_impl::value(ais, bit_pos, 28);
 	*lon = ((double) v) / 600000.0;
 
-	v = value(ais, bit_pos + 28, 27);
+	v = parse_impl::value(ais, bit_pos + 28, 27);
 	*lat = ((double) v) / 600000.0;
 }
 
-void parse::print_position(unsigned char *ais, int bit_pos, char *str,
+void parse_impl::print_position(unsigned char *ais, int bit_pos, char *str,
 		const char *obj_type) {
 	double lon, lat;
 
@@ -1257,7 +1265,7 @@ void parse::print_position(unsigned char *ais, int bit_pos, char *str,
 	d_payload << str;
 }
 
-void parse::toDMS(double ll, int *d, int *m, double *s) {
+void parse_impl::toDMS(double ll, int *d, int *m, double *s) {
 	double dm;
 
 	*d = (int) fabs(ll);
@@ -1266,9 +1274,9 @@ void parse::toDMS(double ll, int *d, int *m, double *s) {
 	*s = fabs(dm - *m) * 60.0;
 }
 
-void parse::print_position_fix_type(unsigned char *ais, int bit_pos,
+void parse_impl::print_position_fix_type(unsigned char *ais, int bit_pos,
 		char *str) {
-	int type = value(ais, bit_pos, 4) & 0x0f;
+	int type = parse_impl::value(ais, bit_pos, 4) & 0x0f;
 	bool error = false;
 
 	switch (type) {
@@ -1307,7 +1315,7 @@ void parse::print_position_fix_type(unsigned char *ais, int bit_pos,
 		d_payload << str;
 }
 
-void parse::print_ship_properties(unsigned char *ais, int bit_pos, char *str) {
+void parse_impl::print_ship_properties(unsigned char *ais, int bit_pos, char *str) {
 	int bp = bit_pos;
 	d_payload << "Ship Name: " << get_text(ais, bp, 20, str) << "\n";
 	bp += 20;
@@ -1319,9 +1327,9 @@ void parse::print_ship_properties(unsigned char *ais, int bit_pos, char *str) {
 	bp += 9;
 }
 
-void parse::print_ship_dimension(unsigned char *ais, int bit_pos, char *str) {
+void parse_impl::print_ship_dimension(unsigned char *ais, int bit_pos, char *str) {
 	int bp = bit_pos;
-	int v1 = value(ais, bp, 9);
+	int v1 = parse_impl::value(ais, bp, 9);
 	bp += 9;
 	if (v1) {
 		sprintf(str, "Dimension to Bow: %d m%s", v1,
@@ -1329,7 +1337,7 @@ void parse::print_ship_dimension(unsigned char *ais, int bit_pos, char *str) {
 		d_payload << str;
 	}
 
-	v1 = value(ais, bp, 9);
+	v1 = parse_impl::value(ais, bp, 9);
 	bp += 9;
 	if (v1) {
 		sprintf(str, "Dimension to Stern: %d m%s", v1,
@@ -1337,14 +1345,14 @@ void parse::print_ship_dimension(unsigned char *ais, int bit_pos, char *str) {
 		d_payload << str;
 	}
 
-	v1 = value(ais, bp, 6);
+	v1 = parse_impl::value(ais, bp, 6);
 	bp += 6;
 	if (v1) {
 		sprintf(str, "Dimension to Port: %d m%s", v1,
 				v1 == 63 ? " or greater\n" : "\n");
 		d_payload << str;
 	}
-	v1 = value(ais, bp, 6);
+	v1 = parse_impl::value(ais, bp, 6);
 	bp += 6;
 	if (v1) {
 		sprintf(str, "Dimension to Starboard: %d m%s", v1,
@@ -1353,7 +1361,7 @@ void parse::print_ship_dimension(unsigned char *ais, int bit_pos, char *str) {
 	}
 }
 
-unsigned long parse::value(unsigned char *ais, int bit_pos, int len) {
+unsigned long parse_impl::value(unsigned char *ais, int bit_pos, int len) {
 	unsigned long rc, mask;
 	unsigned char c;
 	int i;
@@ -1396,7 +1404,7 @@ unsigned long parse::value(unsigned char *ais, int bit_pos, int len) {
 	return (rc & mask);
 }
 
-char *parse::get_text(unsigned char *ais, int bit_pos, int len6, char *buf) {
+char *parse_impl::get_text(unsigned char *ais, int bit_pos, int len6, char *buf) {
 	unsigned char v;
 	char ch, prev_ch = 'a';
 	int i;
@@ -1407,7 +1415,7 @@ char *parse::get_text(unsigned char *ais, int bit_pos, int len6, char *buf) {
 		return buf;
 
 	for (i = 0; i < len6; i++) {
-		v = value(ais, bit_pos + i * 6, 6);
+		v = parse_impl::value(ais, bit_pos + i * 6, 6);
 		ch = ascii_table[v & 0x3f];
 
 #if 0
@@ -1427,7 +1435,7 @@ char *parse::get_text(unsigned char *ais, int bit_pos, int len6, char *buf) {
 	return buf;
 }
 
-double parse::wgs84distance(double lon1, double lat1, double lon2,
+double parse_impl::wgs84distance(double lon1, double lat1, double lon2,
 		double lat2) {
 	if (lon1 == lon2 && lat1 == lat2)
 		return 0;
@@ -1519,7 +1527,7 @@ double parse::wgs84distance(double lon1, double lat1, double lon2,
 	return (eb * A * (sig - dsig)); // meter
 }
 
-double parse::wgs84bearing(double lon1, double lat1, double lon2, double lat2) {
+double parse_impl::wgs84bearing(double lon1, double lat1, double lon2, double lat2) {
 	if (lon1 == lon2 && lat1 == lat2)
 		return 0;
 
@@ -1608,7 +1616,7 @@ double parse::wgs84bearing(double lon1, double lat1, double lon2, double lat2) {
 	return az2;
 }
 
-unsigned long parse::unpack(char *buffer, int start, int length) {
+unsigned long parse_impl::unpack(char *buffer, int start, int length) {
 	unsigned long ret = 0;
 	for (int i = start; i < (start + length); i++) {
 		ret <<= 1;
@@ -1618,7 +1626,7 @@ unsigned long parse::unpack(char *buffer, int start, int length) {
 	return ret;
 }
 
-void parse::reverse_bit_order(char *data, int length) {
+void parse_impl::reverse_bit_order(char *data, int length) {
 	int tmp = 0;
 	for (int i = 0; i < length / 8; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -1629,7 +1637,7 @@ void parse::reverse_bit_order(char *data, int length) {
 	}
 }
 
-char parse::nmea_checksum(std::string buffer) {
+char parse_impl::nmea_checksum(std::string buffer) {
 	unsigned int i = 0;
 	char sum = 0x00;
 	if (buffer[0] == '!')
@@ -1639,7 +1647,7 @@ char parse::nmea_checksum(std::string buffer) {
 	return sum;
 }
 
-unsigned short parse::crc(char *buffer, unsigned int len) // Calculates CRC-checksum from unpacked data
+unsigned short parse_impl::crc(char *buffer, unsigned int len) // Calculates CRC-checksum from unpacked data
 		{
 	static const uint16_t crc_itu16_table[] = { 0x0000, 0x1189, 0x2312, 0x329B,
 			0x4624, 0x57AD, 0x6536, 0x74BF, 0x8C48, 0x9DC1, 0xAF5A, 0xBED3,
@@ -1693,7 +1701,7 @@ unsigned short parse::crc(char *buffer, unsigned int len) // Calculates CRC-chec
 	return rc;
 }
 
-unsigned char parse::packet_crc(const char *buffer) {
+unsigned char parse_impl::packet_crc(const char *buffer) {
 	// ah, same as nmea_checksum...
 	size_t i, len = strlen(buffer);
 	unsigned char crc = 0;

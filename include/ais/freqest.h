@@ -1,4 +1,4 @@
-//ais_freqest.h
+//freqest.h
 /* -*- c++ -*- */
 /*
  * Copyright 2004 Free Software Foundation, Inc.
@@ -25,29 +25,21 @@
 
 #include <gnuradio/sync_block.h>
 
-
-/*!
- * \brief freqest a packed stream of bits.
- * \ingroup block
- *
- *
- * This uses the preferred technique: subclassing gr_sync_block.
- */
 namespace gr {
 
 namespace ais {
-class freqest;
 
 class freqest: virtual public gr::sync_block {
 public:
-	~ais_freqest();  // public destructor
+	typedef boost::shared_ptr<freqest> freqest_sptr;
 
-	// Where all the action really happens
+	static freqest_sptr make_freqest(int sample_rate, int data_rate,
+			int fftlen);
 
-	int work(int noutput_items, gr_vector_const_void_star &input_items,
+	virtual int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
 };
 }
 }
-#endif /* AIS_freqest_H */
+#endif
 

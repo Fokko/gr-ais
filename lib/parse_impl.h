@@ -24,14 +24,8 @@
 
 #include <gnuradio/sync_block.h>
 #include <gnuradio/msg_queue.h>
-//#include <pageri_flex_modes.h>
+#include <../include/ais/parse.h>
 #include <sstream>
-
-class parse;
-typedef boost::shared_ptr<parse> parse_sptr;
-
-parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
-		int verbose, double lon, double lat);
 
 /*!
  * \brief ais packetizer/parser
@@ -51,31 +45,15 @@ parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
 
 namespace gr {
 namespace ais {
-class parse_impl: public gr::ais::parse {
+class parse_impl: public parse {
 private:
 	// Constructors
-	friend parse_sptr make_parse(gr::msg_queue::sptr queue,
-			char designator, int verbose, double lon, double lat);parse(gr::msg_queue::sptr queue, char designator, int verbose, double lon, double lat);
-
-	std::ostringstream d_payload; // message output
-	gr::msg_queue::sptr d_queue;	  // Destination for decoded messages
-
-	char d_designator;
-	unsigned long d_verbose;
-
-	int d_num_stoplost;
-	int d_num_startlost;
-	int d_num_found;
-
 	void parse_data(char *data, int len);
 	void reverse_bit_order(char *data, int length);
 	unsigned short crc(char *buffer, unsigned int len);
 	unsigned char packet_crc(const char *buffer);
 	unsigned long unpack(char *buffer, int start, int length);
 	char nmea_checksum(std::string buffer);
-
-	double d_qth_lon; // your current longitude -180 (West) -> 180 (East)
-	double d_qth_lat; // your current latitude -90 (South) -> 90 (North)
 
 	void decode_ais(char *ascii, int len, bool crc_ok);
 	void decode_base_station(unsigned char *ais, int len, char *str);
@@ -137,6 +115,14 @@ private:
 	}
 
 public:
+	std::ostringstream d_payload; // message output
+	gr::msg_queue::sptr d_queue;	  // Destination for decoded messages
+	char d_designator;
+	unsigned long d_verbose;
+
+	parse_impl(gr::msg_queue::sptr queue, char designator, int verbose,
+			double lon, double lat);
+
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
 };

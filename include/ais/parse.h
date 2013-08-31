@@ -30,11 +30,16 @@ namespace gr {
 
 namespace ais {
 class parse: virtual public gr::sync_block {
-private:
-
 public:
+
+	typedef boost::shared_ptr<parse> parse_sptr;
+
+	parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
+			int verbose, double lon, double lat);
+
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
+
 };
 }
 }

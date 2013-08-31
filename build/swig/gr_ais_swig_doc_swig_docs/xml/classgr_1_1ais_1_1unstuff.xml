@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classgr_1_1ais_1_1unstuff" kind="class" prot="public">
+    <compoundname>gr::ais::unstuff</compoundname>
+    <includes refid="unstuff_8h" local="no">unstuff.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1ais_1_1unstuff_1a2495dd40d389ccef9fce109d5b67146f" prot="public" static="no">
+        <type>boost::shared_ptr&lt; <ref refid="classgr_1_1ais_1_1unstuff" kindref="compound">unstuff</ref> &gt;</type>
+        <definition>typedef boost::shared_ptr&lt;unstuff&gt; gr::ais::unstuff::unstuff_sptr</definition>
+        <argsstring></argsstring>
+        <name>unstuff_sptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" line="42" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1unstuff_1a84f511946f86185470cf3accbcf51a1c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1ais_1_1unstuff_1a2495dd40d389ccef9fce109d5b67146f" kindref="member">unstuff_sptr</ref></type>
+        <definition>static unstuff_sptr gr::ais::unstuff::make_unstuff</definition>
+        <argsstring>()</argsstring>
+        <name>make_unstuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" line="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1ais_1_1unstuff_1a60c15df098b3281560a3134ed8389bd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::ais::unstuff::general_work</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>general_work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1ais_1_1unstuff_1a6d74b432f97f58231e07b64441204afc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::ais::unstuff::forecast</definition>
+        <argsstring>(int noutput_items, gr_vector_int &amp;ninput_items_required)</argsstring>
+        <name>forecast</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_int &amp;</type>
+          <declname>ninput_items_required</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" line="49"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" line="39" bodyfile="/home/fokko/Desktop/gr-ais/include/ais/unstuff.h" bodystart="39" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1ais_1_1unstuff_1a6d74b432f97f58231e07b64441204afc" prot="public" virt="non-virtual"><scope>gr::ais::unstuff</scope><name>forecast</name></member>
+      <member refid="classgr_1_1ais_1_1unstuff_1a60c15df098b3281560a3134ed8389bd1" prot="public" virt="non-virtual"><scope>gr::ais::unstuff</scope><name>general_work</name></member>
+      <member refid="classgr_1_1ais_1_1unstuff_1a84f511946f86185470cf3accbcf51a1c" prot="public" virt="non-virtual"><scope>gr::ais::unstuff</scope><name>make_unstuff</name></member>
+      <member refid="classgr_1_1ais_1_1unstuff_1a2495dd40d389ccef9fce109d5b67146f" prot="public" virt="non-virtual"><scope>gr::ais::unstuff</scope><name>unstuff_sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -13,7 +13,7 @@ namespace ais {
  * \brief Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training
  * \ingroup eq_blk
  */
-class extended_lms_dfe_ff_impl: public gr::ais::extended_lms_dfe_ff {
+class extended_lms_dfe_ff_impl: public extended_lms_dfe_ff {
 
 private:
 	float d_lambda_ff;
@@ -26,8 +26,6 @@ private:
 	unsigned int d_fb_index;
 	unsigned int d_resetcounter;
 
-	extended_lms_dfe_ff_impl (float lambda_ff, float lambda_fb,
-			unsigned int num_fftaps, unsigned int num_fbtaps);
 
 	void reset(void);
 
@@ -35,6 +33,9 @@ public:
 
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
+
+	extended_lms_dfe_ff_impl (float lambda_ff, float lambda_fb,
+			unsigned int num_fftaps, unsigned int num_fbtaps);
 };
 }
 }

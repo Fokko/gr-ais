@@ -30,34 +30,22 @@
 #include "config.h"
 #endif
 
-#include <freqest.h>
+#include <gr_ais_api_impl.h>
 #include <gnuradio/io_signature.h>
-#include <gr_api.h>
+#include <freqest_impl.h>
 
 namespace gr {
-namespace foo {
+namespace ais {
+unsigned int d_offset;
+float d_binsize;
 
 /*
  * Create a new instance of freqest and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
-GR_API freqest_sptr make_freqest(int sample_rate, int data_rate, int fftlen) {
-	return freqest_sptr(new freqest(sample_rate, data_rate, fftlen));
+freqest::freqest_sptr freqest::make_freqest(int sample_rate, int data_rate, int fftlen) {
+	return freqest_sptr(new freqest_impl(sample_rate, data_rate, fftlen));
 }
-
-/*
- * Specify constraints on number of input and output streams.
- * This info is used to construct the input and output signatures
- * (2nd & 3rd args to gr_block's constructor).  The input and
- * output signatures are used by the runtime system to
- * check that a valid number and type of inputs and outputs
- * are connected to this block.  In this case, we accept
- * only 1 input and 1 output.
- */
-static const int MIN_IN = 1;    // mininum number of input streams
-static const int MAX_IN = 1;    // maximum number of input streams
-static const int MIN_OUT = 1;   // minimum number of output streams
-static const int MAX_OUT = 1;   // maximum number of output streams
 
 /*
  * The private constructor
@@ -77,12 +65,6 @@ freqest_impl::freqest_impl(int sample_rate, int data_rate, int fftlen) :
 //	printf("Offset: %i, bin size: %f\n", d_offset, d_binsize);
 }
 
-/*
- * Our virtual destructor.
- */
-freqest::~freqest() {
-	// nothing else required in this example
-}
 
 int freqest::work(int noutput_items, gr_vector_const_void_star &input_items,
 		gr_vector_void_star &output_items) {

@@ -24,30 +24,8 @@
 #define unstuff_H_IMPL
 
 #include <gnuradio/block.h>
+#include <../include/ais/unstuff.h>
 
-class unstuff;
-
-/*
- * We use boost::shared_ptr's instead of raw pointers for all access
- * to gr_blocks (and many other data structures).  The shared_ptr gets
- * us transparent reference counting, which greatly simplifies storage
- * management issues.  This is especially helpful in our hybrid
- * C++ / Python system.
- *
- * See http://www.boost.org/libs/smart_ptr/smart_ptr.htm
- *
- * As a convention, the _sptr suffix indicates a boost::shared_ptr
- */
-typedef boost::shared_ptr<unstuff> unstuff_sptr;
-
-/*!
- * \brief Return a shared_ptr to a new instance of unstuff.
- *
- * To avoid accidental use of raw pointers, unstuff's
- * constructor is private.  make_unstuff is the public
- * interface for creating new instances.
- */
-unstuff_sptr make_unstuff();
 
 /*!
  * \brief unstuff a packed stream of bits.
@@ -60,19 +38,23 @@ namespace gr {
 namespace ais {
 class unstuff_impl: public gr::ais::unstuff {
 private:
-	// The friend declaration allows make_unstuff to
-	// access the private constructor.
+	unstuff_impl();   // private constructor
 
-	friend unstuff_sptr make_unstuff();
-
-	unstuff();   // private constructor
-
-	int d_consecutive;
 
 public:
-	~unstuff();  // public destructor
-
-	// Where all the action really happens
+	/*
+	 * Specify constraints on number of input and output streams.
+	 * This info is used to construct the input and output signatures
+	 * (2nd & 3rd args to gr_block's constructor).  The input and
+	 * output signatures are used by the runtime system to
+	 * check that a valid number and type of inputs and outputs
+	 * are connected to this block.  In this case, we accept
+	 * only 1 input and 1 output.
+	 */
+	static const int MIN_IN = 1;    // mininum number of input streams
+	static const int MAX_IN = 1;    // maximum number of input streams
+	static const int MIN_OUT = 1;   // minimum number of output streams
+	static const int MAX_OUT = 1;   // maximum number of output streams
 
 	int general_work(int noutput_items, gr_vector_int &ninput_items,
 			gr_vector_const_void_star &input_items,

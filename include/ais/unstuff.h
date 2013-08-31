@@ -25,8 +25,6 @@
 
 #include <gnuradio/block.h>
 
-namespace gr {
-namespace ais {
 
 /*!
  * \brief unstuff a packed stream of bits.
@@ -40,9 +38,9 @@ namespace gr {
 namespace ais {
 class unstuff: virtual public gr::block {
 public:
-	~unstuff();  // public destructor
 
-	// Where all the action really happens
+	typedef boost::shared_ptr<unstuff> unstuff_sptr;
+	static unstuff_sptr make_unstuff();
 
 	int general_work(int noutput_items, gr_vector_int &ninput_items,
 			gr_vector_const_void_star &input_items,
@@ -52,7 +50,4 @@ public:
 };
 }
 }
-#endif /* unstuff_H */
-
-}
-}
+#endif

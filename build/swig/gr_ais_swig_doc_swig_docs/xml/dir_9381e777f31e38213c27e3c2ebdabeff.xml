@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="dir_9381e777f31e38213c27e3c2ebdabeff" kind="dir">
+    <compoundname>/home/fokko/Desktop/gr-ais/include/ais/</compoundname>
+    <innerfile refid="extended__lms__dfe__ff_8h">extended_lms_dfe_ff.h</innerfile>
+    <innerfile refid="freqest_8h">freqest.h</innerfile>
+    <innerfile refid="invert_8h">invert.h</innerfile>
+    <innerfile refid="parse_8h">parse.h</innerfile>
+    <innerfile refid="unstuff_8h">unstuff.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/fokko/Desktop/gr-ais/include/ais/"/>
+  </compounddef>
+</doxygen>
