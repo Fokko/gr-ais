@@ -42,11 +42,11 @@ public:
 	typedef boost::shared_ptr<unstuff> unstuff_sptr;
 	static unstuff_sptr make_unstuff();
 
-	int general_work(int noutput_items, gr_vector_int &ninput_items,
+	virtual int general_work(int noutput_items, gr_vector_int &ninput_items,
 			gr_vector_const_void_star &input_items,
-			gr_vector_void_star &output_items);
+			gr_vector_void_star &output_items) ;
 
-	void forecast(int noutput_items, gr_vector_int &ninput_items_required);
+	virtual void forecast(int noutput_items, gr_vector_int &ninput_items_required) = 0;
 };
 }
 }

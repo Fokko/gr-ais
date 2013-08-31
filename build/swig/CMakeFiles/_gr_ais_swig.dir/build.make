@@ -53,6 +53,11 @@ include swig/CMakeFiles/_gr_ais_swig.dir/progress.make
 include swig/CMakeFiles/_gr_ais_swig.dir/flags.make
 
 swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/gr_ais_swig.i
+swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/../include/ais/invert.h
+swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/../include/ais/unstuff.h
+swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/../include/ais/parse.h
+swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/../include/ais/extended_lms_dfe_ff.h
+swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/../include/ais/freqest.h
 swig/gr_ais_swigPYTHON_wrap.cxx: swig/gr_ais_swig.tag
 swig/gr_ais_swigPYTHON_wrap.cxx: ../swig/gr_ais_swig.i
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/fokko/Desktop/gr-ais/build/CMakeFiles $(CMAKE_PROGRESS_1)
