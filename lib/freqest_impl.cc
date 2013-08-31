@@ -1,4 +1,4 @@
-//ais_freqest.cc
+//freqest.cc
 /* -*- c++ -*- */
 /*
  * Copyright 2004 Free Software Foundation, Inc.
@@ -30,17 +30,19 @@
 #include "config.h"
 #endif
 
-#include <ais_freqest.h>
-#include <gr_io_signature.h>
-#include <gr_ais_api.h>
+#include <freqest.h>
+#include <gnuradio/io_signature.h>
+#include <gr_api.h>
+
+namespace gr {
+namespace foo {
 
 /*
- * Create a new instance of ais_freqest and return
+ * Create a new instance of freqest and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
-GR_AIS_API ais_freqest_sptr ais_make_freqest(int sample_rate, int data_rate, int fftlen)
-{
-  return ais_freqest_sptr (new ais_freqest (sample_rate, data_rate, fftlen));
+GR_API freqest_sptr make_freqest(int sample_rate, int data_rate, int fftlen) {
+	return freqest_sptr(new freqest(sample_rate, data_rate, fftlen));
 }
 
 /*
@@ -60,11 +62,11 @@ static const int MAX_OUT = 1;   // maximum number of output streams
 /*
  * The private constructor
  */
-ais_freqest::ais_freqest (int sample_rate, int data_rate, int fftlen)
-  : gr_sync_block ("freqest",
-                   gr_make_io_signature (MIN_IN, MAX_IN, sizeof (gr_complex) * fftlen),
-                   gr_make_io_signature (MIN_OUT, MAX_OUT, sizeof (float)))
-{
+freqest_impl::freqest_impl(int sample_rate, int data_rate, int fftlen) :
+		gr::sync_block("freqest",
+				gr::io_signature::make(MIN_IN, MAX_IN,
+						sizeof(gr_complex) * fftlen),
+				gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof(float))) {
 	//the FFT width is equal to the sample rate
 	//the FFT bin size is equal to the FFT width divided by the number of bins
 	//the offset is equal to the number of bins times (the data rate / the sample rate)
@@ -78,44 +80,44 @@ ais_freqest::ais_freqest (int sample_rate, int data_rate, int fftlen)
 /*
  * Our virtual destructor.
  */
-ais_freqest::~ais_freqest ()
-{
-  // nothing else required in this example
+freqest::~freqest() {
+	// nothing else required in this example
 }
 
-int 
-ais_freqest::work (int noutput_items,
-                        gr_vector_const_void_star &input_items,
-                        gr_vector_void_star &output_items)
-{
+int freqest::work(int noutput_items, gr_vector_const_void_star &input_items,
+		gr_vector_void_star &output_items) {
 
-  const gr_complex *in = (const gr_complex *) input_items[0];
-  float *out = (float *) output_items[0];
+	const gr_complex *in = (const gr_complex *) input_items[0];
+	float *out = (float *) output_items[0];
 
-	unsigned int fftlen = input_signature()->sizeof_stream_item(0) / sizeof(gr_complex);
+	unsigned int fftlen = input_signature()->sizeof_stream_item(0)
+			/ sizeof(gr_complex);
 
 	float maxenergy = 0;
 	unsigned int maxpos = 0;
 	float currentenergy;
 
 	//you are responsible for organizing the vector
-  for (int i = 0; i < noutput_items; i++){
+	for (int i = 0; i < noutput_items; i++) {
 		//for each requested output item
 		maxenergy = 0;
-		for(unsigned int j = 0; j < fftlen - d_offset; j++) {
+		for (unsigned int j = 0; j < fftlen - d_offset; j++) {
 			//over the entire fft up until the right side of the "window" butts up against the end
-			currentenergy = std::abs(in[i*fftlen+j]) + std::abs(in[i*fftlen+j+d_offset]); //sum of the two bins at -datarate/2 and +datarate/2
-			if(currentenergy > maxenergy) {
+			currentenergy = std::abs(in[i * fftlen + j])
+					+ std::abs(in[i * fftlen + j + d_offset]); //sum of the two bins at -datarate/2 and +datarate/2
+			if (currentenergy > maxenergy) {
 				maxenergy = currentenergy;
-				maxpos = j + d_offset/2; //add the offset to find the center position
+				maxpos = j + d_offset / 2; //add the offset to find the center position
 			}
 		}
 		//now maxpos contains the center bin, and we must translate that to a frequency offset
-		out[i] = (float(maxpos) - fftlen/2) * d_binsize/2; //subtract fftlen/2 to center the complex FFT around 0
+		out[i] = (float(maxpos) - fftlen / 2) * d_binsize / 2; //subtract fftlen/2 to center the complex FFT around 0
 //		printf("maxpos is %u\n", maxpos);
-  }
+	}
 
-  // Tell runtime system how many output items we produced.
-  return noutput_items;
+	// Tell runtime system how many output items we produced.
+	return noutput_items;
+}
+}
 }
 

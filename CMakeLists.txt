@@ -34,6 +34,14 @@ set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
+  IF(APPLE)
+    IF (CMAKE_SIZEOF_VOID_P MATCHES "8")
+      IF (CMAKE_OSX_64)
+        SET(ARCH "x86_64")
+      ENDIF (CMAKE_OSX_64)
+    ENDIF (CMAKE_SIZEOF_VOID_P MATCHES "8")
+  ENDIF(APPLE)
+
 ########################################################################
 # Compiler specific setup
 ########################################################################
@@ -66,6 +74,7 @@ endif()
 ########################################################################
 # Install directories
 ########################################################################
+
 include(GrPlatform) #define LIB_SUFFIX
 set(GR_RUNTIME_DIR      bin)
 set(GR_LIBRARY_DIR      lib${LIB_SUFFIX})
@@ -83,31 +92,26 @@ set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
 ########################################################################
 # Find gnuradio build dependencies
 ########################################################################
-find_package(Gruel)
-find_package(GnuradioCore)
+#set(GR_REQUIRED_MODULES RUNTIME BLOCKS FFT FILTER)
 
-if(NOT GRUEL_FOUND)
-    message(FATAL_ERROR "Gruel required to compile gr_ais")
-endif()
-
-if(NOT GNURADIO_CORE_FOUND)
-    message(FATAL_ERROR "GnuRadio Core required to compile gr_ais")
-endif()
+#find_package(Gnuradio)
 
 ########################################################################
 # Setup the include and linker paths
 ########################################################################
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/lib
     ${Boost_INCLUDE_DIRS}
-    ${GRUEL_INCLUDE_DIRS}
-    ${GNURADIO_CORE_INCLUDE_DIRS}
+    "/usr/include/gnuradio"
+    "/usr/local/include"
+    "/usr/local/include/gnuradio/swig/"
 )
 
 link_directories(
     ${Boost_LIBRARY_DIRS}
-    ${GRUEL_LIBRARY_DIRS}
-    ${GNURADIO_CORE_LIBRARY_DIRS}
+    ${GNURADIO_LIBRARIES}
+    "/usr/local/lib/python2.7/dist-packages/gnuradio"
 )
 
 # Set component parameters

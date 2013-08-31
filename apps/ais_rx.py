@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #!/usr/bin/env python
 #ais decoder, main app
 #uses demod_pkt to register a callback
@@ -7,14 +6,15 @@
 #something else to do: brute-force error correction, a la gr-air.
 #another thing to do: use a Viterbi algorithm for detecting the demodulated data
 
-from gnuradio import gr, gru, blks2, optfir
+from gnuradio import gr, gru
 from gnuradio import eng_notation
+from gnuradio import digital
+from gnuradio.eng_option import eng_option
+
 from gr_ais import *
 from gr_ais.ais_demod import *
-from gnuradio import digital
-#from ais_parser import *
+
 from optparse import OptionParser
-from gnuradio.eng_option import eng_option
 
 #from pkt import *
 import time
@@ -47,20 +47,13 @@ class my_top_block(gr.top_block):
                         self.u.set_freq_corr(options.error)
 			if not self.u.set_center_freq(162.0e6):
 				print "Failed to set frequency"
-		
-			# Gain mode manual
 			self.u.set_gain_mode(0)
-			options.gain = 28
-
-			# Set PPM
-			self.u.set_freq_corr(options.ppm, 0)
-
+			if options.gain is None:
+				options.gain = 49
 			self.u.set_gain(options.gain)
 		else:
-                        from gnuradio import uhd
-			self.u = uhd.usrp_source(options.addr,
-									io_type=uhd.io_type.COMPLEX_FLOAT32,
-									num_channels=1)
+			from gnuradio import uhd
+			self.u = uhd.usrp_source(options.addr, io_type=uhd.io_type.COMPLEX_FLOAT32, num_channels=1)
 	
 			if options.subdev is not None:
 				self.u.set_subdev_spec(options.subdev, 0)
@@ -78,6 +71,9 @@ class my_top_block(gr.top_block):
 				options.gain = (g.start()+g.stop()) / 2.0
 
 			#print "Setting gain to %i" % options.gain
+                        #g = self.u.get_gain_range()
+			#print "Max gain %i" % g.stop()
+			#print "Min gain %i" % g.start()
 			self.u.set_gain(options.gain)
 
 
@@ -96,8 +92,7 @@ class my_top_block(gr.top_block):
 		self.rate = options.rate
 		self.u = src
 		self.coeffs = gr.firdes.low_pass(1,self.rate,7000,1000)
-		self._filter_decimation = int(self.rate / 64.0e3)
-                print "%s: Sampling @ %f, decim @ %d" % (designator, self.rate, self._filter_decimation)
+		self._filter_decimation = 4
 		self.filter = gr.freq_xlating_fir_filter_ccf(self._filter_decimation, 
 													 self.coeffs, 
 													 freq,
@@ -112,13 +107,18 @@ class my_top_block(gr.top_block):
 		options.mu=0.5
 		options.omega_relative_limit = 0.0001
 		options.bits_per_sec = self._bits_per_sec
-		options.fftlen = 4096 #trades off accuracy of freq estimation in presence of noise, vs. delay time.
+                #trades off accuracy of freq estimation in presence of noise, vs. delay time.
+                options.fftlen = 4096
 		options.samp_rate = self.rate / self._filter_decimation
-		self.demod = ais_demod(options) #ais_demod.py, hierarchical demodulation block, takes in complex baseband and spits out 1-bit packed bitstream
+                #ais_demod.py, hierarchical demodulation block, takes in complex baseband and spits out 1-bit packed bitstream
+                self.demod = ais_demod(options)
 		self.unstuff = ais.unstuff() #ais_unstuff.cc, unstuffs data
-		self.start_correlator = gr.correlate_access_code_tag_bb("1010101010101010", 0, "ais_preamble") #should mark start of packet
-		self.stop_correlator = gr.correlate_access_code_tag_bb("01111110", 0, "ais_frame") #should mark start and end of packet
-		self.parse = ais.parse(queue, designator) #ais_parse.cc, calculates CRC, parses data into ASCII message, moves data onto queue
+                #should mark start of packet
+                self.start_correlator = gr.correlate_access_code_tag_bb("1010101010101010", 0, "ais_preamble")
+                #should mark start and end of packet
+                self.stop_correlator = gr.correlate_access_code_tag_bb("01111110", 0, "ais_frame")
+                #ais_parse.cc, calculates CRC, parses data into ASCII message, moves data onto queue
+                self.parse = ais.parse(queue, designator, options.verbose, options.lon, options.lat)
 
 		self.connect(self.u,
 		             self.filter,
@@ -144,10 +144,8 @@ def main():
 #						help="set receive frequency to MHz [default=%default]", metavar="FREQ")
 	parser.add_option("-e", "--error", type="eng_float", default=0,
 						help="set offset error of USRP [default=%default]")
-	parser.add_option("-g", "--gain", type="int", default=28,
+	parser.add_option("-g", "--gain", type="int", default=None,
 						help="set RF gain", metavar="dB")
-	parser.add_option("-p", "--ppm", type="int", default=0,
-						help="Set PPM", metavar="ppm")
 	parser.add_option("-r", "--rate", type="eng_float", default=256e3,
 						help="set fgpa decimation rate to DECIM [default=%default]")
 	parser.add_option("-F", "--filename", type="string", default=None,
@@ -156,13 +154,16 @@ def main():
 						help="Use optional coherent demodulation and Viterbi decoder")
 	parser.add_option("-t", "--tcp", action="store_true", default=False,
 						help="Start a TCP server on port 9987 instead of outputting to stdout. Useful for gpsd.")
-	parser.add_option("-o", "--tcpoutput", type="string", default=False,
-						help="Transmit the data to a TCP address. Format 10.0.0.7:5678, if no port then port 1234 is default.", metavar="output")
+        parser.add_option("-V", "--verbose", type="int", default=1,
+                                                help="Verbosity level. 0=AIS ascii output only, 1=decode packets, --verbose >1 various debug levels [default=%default]")
+        parser.add_option("", "--lon", type="float", default=21.5593,
+                                                help="Your longitude in decimal degrees [default=%default]")
+        parser.add_option("", "--lat", type="float", default=63.1587,
+                                                help="Your latitude in decimal degrees [default=%default]")
 	parser.add_option("-d", "--rtlsdr", action="store_true", default=False,
 						help="Use RTL-SDR dongle")
 	parser.add_option("-D", "--args", type="string", default="",
 						help="arguments to pass to UHD/RTL constructor")
-
 
 	(options, args) = parser.parse_args ()
 
@@ -182,22 +183,6 @@ def main():
 		s.listen(1)
 		s.setblocking(0)
 
-	if options.output is not False:
-		if ":" not in options.output:
-			address = options.output
-			port = 1234
-		else:
-			parts = options.output.split(':')
-			address = parts[0]
-			port = int( parts[1] )
-
-
-		sock = socket.socket()
-		sock.connect((address, port))
-
-		print "Connected on: ", address, port
-
-	print "Waiting for messages"
 	try:
 		while 1:
 			if options.tcp is True:
@@ -219,13 +204,6 @@ def main():
 							except socket.error:
 								conns.remove(conn)
 								print "Connections: ", len(conns)
-					elif options.output is not False:
-						try:
-							sock.sendall(sentence + "\n")
-							print "TCP: " + sentence
-						except socket.error: # On error just open a new socket...
-							sock = socket.socket()
-							sock.connect((address, port))
 					else:
 						print sentence
 						sys.stdout.flush()

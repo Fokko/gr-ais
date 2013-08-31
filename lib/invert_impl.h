@@ -1,4 +1,4 @@
-//ais_unstuff.h
+//invert.h
 /* -*- c++ -*- */
 /*
  * Copyright 2004 Free Software Foundation, Inc.
@@ -20,12 +20,12 @@
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef AIS_unstuff_H
-#define AIS_unstuff_H
+#ifndef INVERT_H_IMPL
+#define INVERT_H_IMPL
 
-#include <gr_block.h>
+#include <gnuradio/sync_block.h>
 
-class ais_unstuff;
+class invert;
 
 /*
  * We use boost::shared_ptr's instead of raw pointers for all access
@@ -38,49 +38,44 @@ class ais_unstuff;
  *
  * As a convention, the _sptr suffix indicates a boost::shared_ptr
  */
-typedef boost::shared_ptr<ais_unstuff> ais_unstuff_sptr;
+typedef boost::shared_ptr<invert> invert_sptr;
 
 /*!
- * \brief Return a shared_ptr to a new instance of ais_unstuff.
+ * \brief Return a shared_ptr to a new instance of invert.
  *
- * To avoid accidental use of raw pointers, ais_unstuff's
- * constructor is private.  ais_make_unstuff is the public
+ * To avoid accidental use of raw pointers, invert's
+ * constructor is private.  make_invert is the public
  * interface for creating new instances.
  */
-ais_unstuff_sptr ais_make_unstuff();
+invert_sptr make_invert();
 
 /*!
- * \brief unstuff a packed stream of bits.
+ * \brief invert a packed stream of bits.
  * \ingroup block
  *
  *
- * This uses the preferred technique: subclassing gr_block.
+ * This uses the preferred technique: subclassing gr_sync_block.
  */
-class ais_unstuff : public gr_block
-{
+namespace gr {
+namespace ais {
+class invert_impl: public gr::ais::invert {
 private:
-  // The friend declaration allows ais_make_unstuff to
-  // access the private constructor.
+	// The friend declaration allows make_invert to
+	// access the private constructor.
 
-  friend ais_unstuff_sptr ais_make_unstuff();
+	friend invert_sptr make_invert();
 
-  ais_unstuff();   // private constructor
+	invert();   // private constructor
 
-  int d_consecutive;
+public:
+	~invert();  // public destructor
 
- public:
-  ~ais_unstuff();  // public destructor
+	// Where all the action really happens
 
-  // Where all the action really happens
-
-  int general_work (int noutput_items,
-            gr_vector_int &ninput_items,
-            gr_vector_const_void_star &input_items,
-            gr_vector_void_star &output_items);
-
-  void forecast (int noutput_items,
-	       gr_vector_int &ninput_items_required);
+	int work(int noutput_items, gr_vector_const_void_star &input_items,
+			gr_vector_void_star &output_items);
 };
-
-#endif /* AIS_unstuff_H */
+}
+}
+#endif /* INVERT_H */
 

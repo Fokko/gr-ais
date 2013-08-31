@@ -1,4 +1,4 @@
-//ais_unstuff.cc
+//invert.cc
 /* -*- c++ -*- */
 /*
  * Copyright 2004 Free Software Foundation, Inc.
@@ -30,17 +30,18 @@
 #include "config.h"
 #endif
 
-#include <ais_unstuff.h>
-#include <gr_io_signature.h>
-#include <gr_ais_api.h>
+#include <invert_impl.h>
+#include <gnuradio/io_signature.h>
+#include <gr_api.h>
 
+namespace gr {
+namespace foo {
 /*
- * Create a new instance of ais_unstuff and return
+ * Create a new instance of invert and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
-GR_AIS_API ais_unstuff_sptr ais_make_unstuff()
-{
-  return ais_unstuff_sptr (new ais_unstuff ());
+GR_API invert_sptr make_invert() {
+	return invert_sptr(new invert());
 }
 
 /*
@@ -60,61 +61,35 @@ static const int MAX_OUT = 1;   // maximum number of output streams
 /*
  * The private constructor
  */
-ais_unstuff::ais_unstuff ()
-  : gr_block ("unstuff",
-                   gr_make_io_signature (MIN_IN, MAX_IN, sizeof (char)),
-                   gr_make_io_signature (MIN_OUT, MAX_OUT, sizeof (char)))
-{
-  set_relative_rate((double)1.0);
-  d_consecutive = 0;
-  set_output_multiple(1000);
-  //printf("Calling constructor\n");
+invert::invert() :
+		gr::sync_block("invert",
+				gr::io_signature::make(MIN_IN, MAX_IN, sizeof(char)),
+				gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof(char))) {
+	// nothing else required in this example
 }
 
 /*
  * Our virtual destructor.
  */
-ais_unstuff::~ais_unstuff ()
-{
-  // nothing else required in this example
+invert::~invert() {
+	// nothing else required in this example
 }
 
-void ais_unstuff::forecast (int noutput_items,
-	       gr_vector_int &ninput_items_required) //estimate number of input samples required for noutput_items samples
-{
-	int size = noutput_items + 2*(noutput_items / 256); //on average
+int invert::work(int noutput_items, gr_vector_const_void_star &input_items,
+		gr_vector_void_star &output_items) {
+	const char *in = (const char *) input_items[0];
+	char *out = (char *) output_items[0];
 
-	ninput_items_required[0] = size;
-}
-
-
-//so is this is gonna unstuff the start and stop codes? nooooo, because those have a following '1'.
-int 
-ais_unstuff::general_work (int noutput_items,
-		                gr_vector_int &ninput_items,
-                        gr_vector_const_void_star &input_items,
-                        gr_vector_void_star &output_items)
-{
-  const char *in = (const char *) input_items[0];
-  char *out = (char *) output_items[0];
-
-  int j = 0;
-  int i = 0;
-
-  while(j < noutput_items && i < ninput_items[0]){
-    if(in[i] & 0x01) {//if bit 0 is set (the data bit)
-	d_consecutive++;
-    } else {
-	if(d_consecutive == 5) {
-	    i++;
+	for (int i = 0; i < noutput_items; i++) {
+		if (in[i] == 1)
+			out[i] = 0;
+		else if (in[i] == 0)
+			out[i] = 1;
+//          else printf("Non-binary input to invert()\n"); //should probably flag an error somewhere
 	}
-	d_consecutive = 0;
-    }
-    out[j++] = in[i++];
-  }
 
-  consume_each(i); //tell gnuradio how many input items we used
-  // Tell runtime system how many output items we produced.
-  return j;
+	// Tell runtime system how many output items we produced.
+	return noutput_items;
 }
-
+}
+}

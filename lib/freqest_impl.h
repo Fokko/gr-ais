@@ -1,4 +1,4 @@
-//ais_freqest.h
+//freqest.h
 /* -*- c++ -*- */
 /*
  * Copyright 2004 Free Software Foundation, Inc.
@@ -20,12 +20,12 @@
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
-#ifndef AIS_freqest_H
-#define AIS_freqest_H
+#ifndef freqest_H_IMPL
+#define freqest_H_IMPL
 
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
-class ais_freqest;
+class freqest;
 
 /*
  * We use boost::shared_ptr's instead of raw pointers for all access
@@ -38,16 +38,16 @@ class ais_freqest;
  *
  * As a convention, the _sptr suffix indicates a boost::shared_ptr
  */
-typedef boost::shared_ptr<ais_freqest> ais_freqest_sptr;
+typedef boost::shared_ptr<freqest> freqest_sptr;
 
 /*!
- * \brief Return a shared_ptr to a new instance of ais_freqest.
+ * \brief Return a shared_ptr to a new instance of freqest.
  *
- * To avoid accidental use of raw pointers, ais_freqest's
- * constructor is private.  ais_make_freqest is the public
+ * To avoid accidental use of raw pointers, freqest's
+ * constructor is private.  make_freqest is the public
  * interface for creating new instances.
  */
-ais_freqest_sptr ais_make_freqest(int sample_rate, int data_rate, int fftlen);
+freqest_sptr make_freqest(int sample_rate, int data_rate, int fftlen);
 
 /*!
  * \brief freqest a packed stream of bits.
@@ -56,28 +56,30 @@ ais_freqest_sptr ais_make_freqest(int sample_rate, int data_rate, int fftlen);
  *
  * This uses the preferred technique: subclassing gr_sync_block.
  */
-class ais_freqest : public gr_sync_block
-{
+namespace gr {
+namespace ais {
+class freqest_impl: public freqest {
 private:
-  // The friend declaration allows ais_make_freqest to
-  // access the private constructor.
+	// The friend declaration allows make_freqest to
+	// access the private constructor.
 
-  friend ais_freqest_sptr ais_make_freqest(int sample_rate, int data_rate, int fftlen);
+	friend freqest_sptr make_freqest(int sample_rate, int data_rate,
+			int fftlen);
 
-  ais_freqest(int sample_rate, int data_rate, int fftlen);   // private constructor
+	freqest(int sample_rate, int data_rate, int fftlen); // private constructor
 
 	unsigned int d_offset;
 	float d_binsize;
 
- public:
-  ~ais_freqest();  // public destructor
+public:
+	~freqest();  // public destructor
 
-  // Where all the action really happens
+	// Where all the action really happens
 
-  int work (int noutput_items,
-            gr_vector_const_void_star &input_items,
-            gr_vector_void_star &output_items);
+	int work(int noutput_items, gr_vector_const_void_star &input_items,
+			gr_vector_void_star &output_items);
 };
-
-#endif /* AIS_freqest_H */
+}
+}
+#endif /* freqest_H */
 

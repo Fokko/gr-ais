@@ -18,48 +18,46 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# Install public header files
+# Include swig generation macros
 ########################################################################
+find_package(SWIG)
+find_package(PythonLibs)
+if(NOT SWIG_FOUND OR NOT PYTHONLIBS_FOUND)
+    message(STATUS 'Missing SWIG or PYTHON')
+    return()
+endif()
+include(GrSwig)
+include(GrPython)
+message( STATUS Found swig version  ${SWIG_VERSION})
 
-
-########################################################################
-# Setup library
-########################################################################
-include(GrPlatform) #define LIB_SUFFIX
-
-add_library(gnuradio-gr_ais SHARED extended_lms_dfe_ff_impl.cc freqest_impl.cc invert_impl.cc parse_impl.cc unstuff_impl.cc)
-target_link_libraries(gnuradio-gr_ais ${Boost_LIBRARIES} ${RUNTIME_LIBRARIES})
-set_target_properties(gnuradio-gr_ais PROPERTIES DEFINE_SYMBOL "gnuradio_gr_ais_EXPORTS")
-
-########################################################################
-# Install built library files
-########################################################################
-install(TARGETS gnuradio-gr_ais
-    LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
-    ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
-    RUNTIME DESTINATION bin              # .dll file
-)
 
 ########################################################################
-# Build and register unit test
+# Setup swig generation
 ########################################################################
-#find_package(Boost COMPONENTS unit_test_framework)
+foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
+    message(STATUS ${incdir}/swig)
+    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/swig)
+endforeach(incdir)
 
-#include(GrTest)
-#set(GR_TEST_TARGET_DEPS gnuradio-gr_ais)
-#turn each test cpp file into an executable with an int main() function
-#add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
+set(SWIG_LINK_LIBRARIES '/usr/local/lib')
 
-#add_executable(qa_gr_ais_square_ff qa_gr_ais_square_ff.cc)
-#target_link_libraries(qa_gr_ais_square_ff gnuradio-gr_ais ${Boost_LIBRARIES})
-#GR_ADD_TEST(qa_gr_ais_square_ff qa_gr_ais_square_ff)
+set(GR_SWIG_LIBRARIES gnuradio-gr_ais)
+set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/gr_ais_swig_doc.i)
+set(GR_SWIG_DOC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
-#add_executable(qa_gr_ais_square2_ff qa_gr_ais_square2_ff.cc)
-#target_link_libraries(qa_gr_ais_square2_ff gnuradio-gr_ais ${Boost_LIBRARIES})
-#GR_ADD_TEST(qa_gr_ais_square2_ff qa_gr_ais_square2_ff)
+GR_SWIG_MAKE(gr_ais_swig gr_ais_swig.i)
 
+########################################################################
+# Install the build swig module
+########################################################################
+GR_SWIG_INSTALL(TARGETS gr_ais_swig DESTINATION ${GR_PYTHON_DIR}/gr_ais)
+
+########################################################################
+# Install swig .i files for development
+########################################################################
 install(
-    DIRECTORY ${CMAKE_SOURCE_DIR}/lib
-    DESTINATION include/gr_ais
-    FILES_MATCHING PATTERN "*.h"
+    FILES
+    gr_ais_swig.i
+    ${CMAKE_CURRENT_BINARY_DIR}/gr_ais_swig_doc.i
+    DESTINATION ${GR_INCLUDE_DIR}/gr_ais/swig
 )

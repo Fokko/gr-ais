@@ -23,21 +23,23 @@
 find_package(SWIG)
 find_package(PythonLibs)
 if(NOT SWIG_FOUND OR NOT PYTHONLIBS_FOUND)
+    message(STATUS 'Missing SWIG or PYTHON')
     return()
 endif()
 include(GrSwig)
 include(GrPython)
+message( STATUS "Found swig version " ${SWIG_VERSION})
+
 
 ########################################################################
 # Setup swig generation
 ########################################################################
-foreach(incdir ${GNURADIO_CORE_INCLUDE_DIRS})
+foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
+    message(STATUS ${incdir}/swig)
     list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/swig)
 endforeach(incdir)
 
-foreach(incdir ${GRUEL_INCLUDE_DIRS})
-    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/gruel/swig)
-endforeach(incdir)
+set(SWIG_LINK_LIBRARIES '/usr/local/lib')
 
 set(GR_SWIG_LIBRARIES gnuradio-gr_ais)
 set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/gr_ais_swig_doc.i)
@@ -57,5 +59,5 @@ install(
     FILES
     gr_ais_swig.i
     ${CMAKE_CURRENT_BINARY_DIR}/gr_ais_swig_doc.i
-    DESTINATION $(GR_INCLUDE_DIR)/gr_ais/swig
+    DESTINATION ${GR_INCLUDE_DIR}/gr_ais/swig
 )
