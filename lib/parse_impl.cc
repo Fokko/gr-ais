@@ -251,7 +251,7 @@ void parse_impl::decode_ais(char *ascii, int len, bool crc_ok) {
 	d_payload << str;
 
 	value = parse_impl::value(data, 8, 30);
-	sprintf(str, "Mobile Marine Service Identifier: %d\n", value);
+	sprintf(str, "Mobile Marine Service Identifier: %u\n", value);
 	d_payload << str;
 
 	switch (report_type) {

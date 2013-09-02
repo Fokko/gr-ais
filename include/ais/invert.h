@@ -39,11 +39,14 @@ namespace ais {
 class invert: virtual public gr::sync_block {
 public:
 	typedef boost::shared_ptr<invert> invert_sptr;
-	static invert_sptr make_invert();
-	virtual int work(int noutput_items, gr_vector_const_void_star &input_items,
-			gr_vector_void_star &output_items);
 
-	invert();
+	// Static
+	static invert_sptr make_invert();
+
+	// Functions
+	virtual int work(int noutput_items, gr_vector_const_void_star &input_items,
+			gr_vector_void_star &output_items) = 0;
+
 };
 }
 }

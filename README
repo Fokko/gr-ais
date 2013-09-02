@@ -21,8 +21,9 @@
 ========================================================================
 AUTHOR
 
-Core: 			Nick Foster <bistromath@gmail.com>
-Packet decoder:		Patrik Tast <patrik@poes-weather.com>
+Core: 							Nick Foster <bistromath@gmail.com>
+Packet decoder:					Patrik Tast <patrik@poes-weather.com>
+Refactored for version 3.7:		Fokko Driesprong <fokko@driesprongen.nl>
 
 ========================================================================
 OVERVIEW
@@ -38,9 +39,9 @@ REQUIREMENTS
 gr-ais requires:
 
 * Python
-* Gnuradio
+* Gnuradio version >= 3.7 
 * Ettus UHD for use with USRPs
-* osmosdr for use with RTLSDR dongles (work in progress)
+* Osmosdr for use with RTLSDR dongles
 * CMake
 
 ========================================================================

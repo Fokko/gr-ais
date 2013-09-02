@@ -33,9 +33,11 @@ class freqest: virtual public gr::sync_block {
 public:
 	typedef boost::shared_ptr<freqest> freqest_sptr;
 
+	// Static
 	static freqest_sptr make_freqest(int sample_rate, int data_rate,
 			int fftlen);
 
+	// Functions
 	virtual int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items) = 0;
 };

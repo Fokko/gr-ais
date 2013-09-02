@@ -34,9 +34,11 @@ public:
 
 	typedef boost::shared_ptr<parse> parse_sptr;
 
-	parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
+	// Static
+	static parse_sptr make_parse(gr::msg_queue::sptr queue, char designator,
 			int verbose, double lon, double lat);
 
+	// private
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items) = 0;
 

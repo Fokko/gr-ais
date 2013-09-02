@@ -26,8 +26,6 @@
 #include <gnuradio/sync_block.h>
 #include <../include/ais/invert.h>
 
-
-
 /*!
  * \brief invert a packed stream of bits.
  * \ingroup block
@@ -37,14 +35,9 @@
  */
 namespace gr {
 namespace ais {
-class invert_impl: public gr::ais::invert {
-private:
-
-
+class invert_impl: public invert {
 public:
-
 	// Where all the action really happens
-
 	int work(int noutput_items, gr_vector_const_void_star &input_items,
 			gr_vector_void_star &output_items);
 

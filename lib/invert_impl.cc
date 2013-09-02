@@ -41,7 +41,7 @@ namespace ais {
  * a boost shared_ptr.  This is effectively the public constructor.
  */
 invert::invert_sptr invert::make_invert() {
-	return invert_sptr(new invert());
+	return invert_sptr(new invert_impl());
 }
 
 /*
@@ -65,7 +65,6 @@ invert_impl::invert_impl() :
 		gr::sync_block("invert",
 				gr::io_signature::make(MIN_IN, MAX_IN, sizeof(char)),
 				gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof(char))) {
-	// nothing else required in this example
 }
 
 int invert::work(int noutput_items, gr_vector_const_void_star &input_items,

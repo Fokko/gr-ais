@@ -42,7 +42,7 @@ int d_consecutive;
  * a boost shared_ptr.  This is effectively the public constructor.
  */
 unstuff::unstuff_sptr unstuff::make_unstuff() {
-	return unstuff_sptr(new unstuff());
+	return unstuff_sptr(new unstuff_impl());
 }
 
 /*

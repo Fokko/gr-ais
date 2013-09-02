@@ -38,10 +38,10 @@ namespace gr {
 namespace ais {
 class unstuff_impl: public gr::ais::unstuff {
 private:
-	unstuff_impl();   // private constructor
 
 
 public:
+	unstuff_impl();   // private constructor
 	/*
 	 * Specify constraints on number of input and output streams.
 	 * This info is used to construct the input and output signatures

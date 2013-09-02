@@ -1,7 +1,0 @@
-/home/fokko/Desktop/gr-ais/build/swig/CMakeFiles/_gr_ais_swig.dir
-/home/fokko/Desktop/gr-ais/build/swig/CMakeFiles/_gr_ais_swig_doc_tag.dir
-/home/fokko/Desktop/gr-ais/build/swig/CMakeFiles/_gr_ais_swig_swig_tag.dir
-/home/fokko/Desktop/gr-ais/build/lib/CMakeFiles/gnuradio-gr_ais.dir
-/home/fokko/Desktop/gr-ais/build/apps/CMakeFiles/pygen_apps_2aa1d.dir
-/home/fokko/Desktop/gr-ais/build/python/CMakeFiles/pygen_python_370d4.dir
-/home/fokko/Desktop/gr-ais/build/swig/CMakeFiles/pygen_swig_11882.dir
