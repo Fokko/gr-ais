@@ -17,18 +17,17 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
-########################################################################
-# Install public header files
-########################################################################
-
 
 ########################################################################
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
+message( STATUS 'test' )
+message( STATUS ${RUNTIME_LIBRARIES} )
+
 add_library(gnuradio-gr_ais SHARED extended_lms_dfe_ff_impl.cc freqest_impl.cc invert_impl.cc parse_impl.cc unstuff_impl.cc)
-target_link_libraries(gnuradio-gr_ais ${Boost_LIBRARIES} ${RUNTIME_LIBRARIES})
+target_link_libraries(gnuradio-gr_ais ${Boost_LIBRARY_DIRS} ${RUNTIME_LIBRARIES})
 set_target_properties(gnuradio-gr_ais PROPERTIES DEFINE_SYMBOL "gnuradio_gr_ais_EXPORTS")
 
 ########################################################################
@@ -43,7 +42,6 @@ install(TARGETS gnuradio-gr_ais
 ########################################################################
 # Build and register unit test
 ########################################################################
-#find_package(Boost COMPONENTS unit_test_framework)
 
 #include(GrTest)
 #set(GR_TEST_TARGET_DEPS gnuradio-gr_ais)
@@ -51,7 +49,7 @@ install(TARGETS gnuradio-gr_ais
 #add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
 
 #add_executable(qa_gr_ais_square_ff qa_gr_ais_square_ff.cc)
-#target_link_libraries(qa_gr_ais_square_ff gnuradio-gr_ais ${Boost_LIBRARIES})
+#target_link_libraries(${Boost_LIBRARIES})
 #GR_ADD_TEST(qa_gr_ais_square_ff qa_gr_ais_square_ff)
 
 #add_executable(qa_gr_ais_square2_ff qa_gr_ais_square2_ff.cc)

@@ -20,7 +20,6 @@
 ########################################################################
 # Install public header files
 ########################################################################
-message(STATUS ${CMAKE_SOURCE_DIR}/include/ais)
 install(
     DIRECTORY ${CMAKE_SOURCE_DIR}/include/ais
     DESTINATION include/gr_ais

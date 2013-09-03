@@ -21,9 +21,9 @@
 ========================================================================
 AUTHOR
 
-Core: 							Nick Foster <bistromath@gmail.com>
-Packet decoder:					Patrik Tast <patrik@poes-weather.com>
-Refactored for version 3.7:		Fokko Driesprong <fokko@driesprongen.nl>
+Core: 				Nick Foster <bistromath@gmail.com>
+Packet decoder:			Patrik Tast <patrik@poes-weather.com>
+Refactored for version 3.7:	Fokko Driesprong <fokko@driesprongen.nl>
 
 ========================================================================
 OVERVIEW
