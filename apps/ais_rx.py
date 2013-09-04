@@ -6,13 +6,11 @@
 #something else to do: brute-force error correction, a la gr-air.
 #another thing to do: use a Viterbi algorithm for detecting the demodulated data
 
-from gnuradio import gr, gru
-from gnuradio import eng_notation
-from gnuradio import digital
+from gnuradio import *
 from gnuradio.eng_option import eng_option
 
-from gr_ais import *
-from gr_ais.ais_demod import *
+from ais import *
+#from gr_ais.ais_demod import *
 
 from optparse import OptionParser
 
