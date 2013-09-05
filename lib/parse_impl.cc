@@ -24,15 +24,12 @@
 
 #include <gnuradio/io_signature.h>
 #include <gnuradio/msg_queue.h>
-#include "parse_impl.h"
 
-#include <ctype.h>
-#include <iostream>
-#include <iomanip>
 #include <boost/foreach.hpp>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
+#include "parse_impl.h"
+
 
 namespace gr {
   namespace ais {

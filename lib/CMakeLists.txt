@@ -31,6 +31,9 @@ list(APPEND ais_sources
     parse_impl.cc
     unstuff_impl.cc )
 
+message( STATUS 'TEST' )
+message( STATUS ${GNURADIO_RUNTIME_LIBRARIES} )
+
 add_library(gnuradio-ais SHARED ${ais_sources})
 target_link_libraries(gnuradio-ais ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES})
 set_target_properties(gnuradio-ais PROPERTIES DEFINE_SYMBOL "gnuradio_ais_EXPORTS")

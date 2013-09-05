@@ -3,7 +3,7 @@ mkdir build
 cd build
 cmake ../
 make
-make test
+ctest -V
 make install
 ldconfig
-python /home/fokko/Desktop/gr-ais-new/gr-ais/apps/ais_rx.py
+python /home/fokko/Desktop/gr-ais/apps/ais_rx.py -d

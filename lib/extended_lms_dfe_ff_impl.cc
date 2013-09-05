@@ -23,8 +23,13 @@
 #endif
 
 #include <gnuradio/io_signature.h>
+#include <gnuradio/misc.h>
 #include "extended_lms_dfe_ff_impl.h"
 
+/*!
+* \brief Least-Mean-Square Decision Feedback Equalizer (float in/out) with reset input and preamble training
+* \ingroup eq_blk
+*/
 namespace gr {
   namespace ais {
 
@@ -43,17 +48,17 @@ namespace gr {
               gr::io_signature::make2(2, 2, sizeof(float), sizeof(char)),
               gr::io_signature::make(1, 1, sizeof(float))),
 	    d_lambda_ff (lambda_ff), d_lambda_fb (lambda_fb), 
-	    d_ff_delayline(rounduppow2(num_fftaps)),
-	    d_fb_delayline(rounduppow2(num_fbtaps)),
+	    d_ff_delayline(gr_rounduppow2(num_fftaps)),
+	    d_fb_delayline(gr_rounduppow2(num_fbtaps)),
 	    d_ff_taps(num_fftaps), d_fb_taps(num_fbtaps),
 	    d_ff_index(0), d_fb_index(0), d_resetcounter(0)
     {
-	zero_vector(d_ff_taps);
+	gr_zero_vector(d_ff_taps);
 	d_ff_taps[d_ff_taps.size() / 2] = 1;
 
-	zero_vector(d_fb_taps);
-	zero_vector(d_ff_delayline);
-	zero_vector(d_fb_delayline);
+	gr_zero_vector(d_fb_taps);
+	gr_zero_vector(d_ff_delayline);
+	gr_zero_vector(d_fb_delayline);
 
 	set_output_multiple(300);
 }
@@ -76,12 +81,12 @@ float slice(float val) {
 
 
 void extended_lms_dfe_ff_impl::reset(void) {
-	zero_vector(d_ff_taps);
+	gr_zero_vector(d_ff_taps);
 	d_ff_taps[d_ff_taps.size() / 2] = 1;
 
-	zero_vector(d_fb_taps);
-	zero_vector(d_ff_delayline);
-	zero_vector(d_fb_delayline);
+	gr_zero_vector(d_fb_taps);
+	gr_zero_vector(d_ff_delayline);
+	gr_zero_vector(d_fb_delayline);
 
 	d_ff_index = 0;
 	d_fb_index = 0;
@@ -189,43 +194,6 @@ void extended_lms_dfe_ff_impl::reset(void) {
 
 	return noutput_items;
     }
-
-unsigned int
-  rounduppow2(unsigned int n)
-  {
-    int i;
-    for(i=0;((n-1)>>i) != 0;i++)
-      ;
-    return 1<<i;
-  }
-
-  void
-  zero_vector(std::vector<float> &v)
-  {
-    for(unsigned int i=0; i < v.size(); i++)
-      v[i] = 0;
-  }
-
-  void
-  zero_vector(std::vector<double> &v)
-  {
-    for(unsigned int i=0; i < v.size(); i++)
-      v[i] = 0;
-  }
-
-  void
-  zero_vector(std::vector<int> &v)
-  {
-    for(unsigned int i=0; i < v.size(); i++)
-      v[i] = 0;
-  }
-
-  void
-  zero_vector(std::vector<gr_complex> &v)
-  {
-    for(unsigned int i=0; i < v.size(); i++)
-      v[i] = 0;
-  }
 
 
 

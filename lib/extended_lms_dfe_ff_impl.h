@@ -29,8 +29,6 @@ namespace gr {
     class extended_lms_dfe_ff_impl : public extended_lms_dfe_ff
     {
      private:
-	 unsigned int
-	  rounduppow2(unsigned int n);
 
       // Nothing to declare in this block.
 	float d_lambda_ff;
@@ -43,10 +41,6 @@ namespace gr {
 	unsigned int d_fb_index;
 	unsigned int d_resetcounter;
 
-	void zero_vector(std::vector<float> &v);
-	void zero_vector(std::vector<double> &v);
-	void zero_vector(std::vector<int> &v);
-	void zero_vector(std::vector<gr_complex> &v);
 
 	void reset(void);
 

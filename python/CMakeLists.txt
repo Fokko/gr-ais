@@ -30,6 +30,7 @@ endif()
 ########################################################################
 GR_PYTHON_INSTALL(
     FILES
+    ais_demod.py
     __init__.py
     DESTINATION ${GR_PYTHON_DIR}/ais
 )
