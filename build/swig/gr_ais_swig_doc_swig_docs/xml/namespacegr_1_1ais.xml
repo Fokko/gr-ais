@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.3.1">
+  <compounddef id="namespacegr_1_1ais" kind="namespace">
+    <compoundname>gr::ais</compoundname>
+    <innerclass refid="classgr_1_1ais_1_1extended__lms__dfe__ff" prot="public">gr::ais::extended_lms_dfe_ff</innerclass>
+    <innerclass refid="classgr_1_1ais_1_1freqest" prot="public">gr::ais::freqest</innerclass>
+    <innerclass refid="classgr_1_1ais_1_1invert" prot="public">gr::ais::invert</innerclass>
+    <innerclass refid="classgr_1_1ais_1_1parse" prot="public">gr::ais::parse</innerclass>
+    <innerclass refid="classgr_1_1ais_1_1unstuff" prot="public">gr::ais::unstuff</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/fokko/Desktop/gr-ais-fokko/include/ais/extended_lms_dfe_ff.h" line="17"/>
+  </compounddef>
+</doxygen>

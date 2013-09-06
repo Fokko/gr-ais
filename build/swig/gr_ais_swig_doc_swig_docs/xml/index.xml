@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.3.1">
+  <compound refid="classgr_1_1ais_1_1extended__lms__dfe__ff" kind="class"><name>gr::ais::extended_lms_dfe_ff</name>
+    <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a85e9c2d5a6e607bed83253fc1c946934" kind="typedef"><name>extended_lms_dfe_ff_sptr</name></member>
+    <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a256f5bab2bafa47471ec2051d5731667" kind="function"><name>make_extended_lms_dfe_ff</name></member>
+    <member refid="classgr_1_1ais_1_1extended__lms__dfe__ff_1a60378d15c075f91faf02211fe69f337f" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classgr_1_1ais_1_1freqest" kind="class"><name>gr::ais::freqest</name>
+    <member refid="classgr_1_1ais_1_1freqest_1a905442d75a92e62ffaa28e1ebad4cf40" kind="typedef"><name>freqest_sptr</name></member>
+    <member refid="classgr_1_1ais_1_1freqest_1a1c089a23be272d551acc150554c632a6" kind="function"><name>make_freqest</name></member>
+    <member refid="classgr_1_1ais_1_1freqest_1a86d3316ff9d54eac0b1c5f66b8d9b446" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classgr_1_1ais_1_1invert" kind="class"><name>gr::ais::invert</name>
+    <member refid="classgr_1_1ais_1_1invert_1a9d4bd648e208566d32bbdc937c8ff0ed" kind="typedef"><name>invert_sptr</name></member>
+    <member refid="classgr_1_1ais_1_1invert_1abb0ed5e1b775938d27aa0040c0d27721" kind="function"><name>make_invert</name></member>
+    <member refid="classgr_1_1ais_1_1invert_1a967f495d514d73c6442ae4cd678a377c" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classgr_1_1ais_1_1parse" kind="class"><name>gr::ais::parse</name>
+    <member refid="classgr_1_1ais_1_1parse_1ab182fb4a110a9c0e7025328ae5763e03" kind="typedef"><name>parse_sptr</name></member>
+    <member refid="classgr_1_1ais_1_1parse_1ad6a032cf5a014ad8b414057a634aa175" kind="function"><name>make_parse</name></member>
+    <member refid="classgr_1_1ais_1_1parse_1a8b7b7899a163d92bdcea25ed5f252571" kind="function"><name>work</name></member>
+  </compound>
+  <compound refid="classgr_1_1ais_1_1unstuff" kind="class"><name>gr::ais::unstuff</name>
+    <member refid="classgr_1_1ais_1_1unstuff_1a2495dd40d389ccef9fce109d5b67146f" kind="typedef"><name>unstuff_sptr</name></member>
+    <member refid="classgr_1_1ais_1_1unstuff_1a84f511946f86185470cf3accbcf51a1c" kind="function"><name>make_unstuff</name></member>
+    <member refid="classgr_1_1ais_1_1unstuff_1a61628b83201c0c7cfa2529b9403eef8a" kind="function"><name>general_work</name></member>
+    <member refid="classgr_1_1ais_1_1unstuff_1a868265336961b11b0b4e60d31ddaad27" kind="function"><name>forecast</name></member>
+  </compound>
+  <compound refid="namespacegr" kind="namespace"><name>gr</name>
+  </compound>
+  <compound refid="namespacegr_1_1ais" kind="namespace"><name>gr::ais</name>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="extended__lms__dfe__ff_8h" kind="file"><name>extended_lms_dfe_ff.h</name>
+  </compound>
+  <compound refid="freqest_8h" kind="file"><name>freqest.h</name>
+  </compound>
+  <compound refid="invert_8h" kind="file"><name>invert.h</name>
+  </compound>
+  <compound refid="parse_8h" kind="file"><name>parse.h</name>
+  </compound>
+  <compound refid="unstuff_8h" kind="file"><name>unstuff.h</name>
+  </compound>
+  <compound refid="dir_9381e777f31e38213c27e3c2ebdabeff" kind="dir"><name>/home/fokko/Desktop/gr-ais-fokko/include/ais</name>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>/home/fokko/Desktop/gr-ais-fokko/include</name>
+  </compound>
+</doxygenindex>

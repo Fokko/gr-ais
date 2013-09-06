@@ -39,11 +39,6 @@ function(GR_MODULE EXTVAR PCNAME INCFILE LIBFILE)
     set(PC_INCDIR "PC_GNURADIO_${EXTVAR}_INCLUDEDIR")
     set(PC_LIBDIR "PC_GNURADIO_${EXTVAR}_LIBDIR")
 
-    message( STATUS 'TEST' )
-    message( STATUS ${INCVAR_NAME} )
-    message( STATUS ${LIBVAR_NAME} )
-    message( STATUS $ENV{GNURADIO_RUNTIME_DIR} )
-
     # look for include files
     FIND_PATH(
         ${INCVAR_NAME}

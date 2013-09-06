@@ -23,8 +23,6 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-message( STATUS 'test' )
-message( STATUS ${Boost_LIBRARIES} )
 add_library(gnuradio-gr_ais SHARED extended_lms_dfe_ff_impl.cc freqest_impl.cc invert_impl.cc parse_impl.cc unstuff_impl.cc)
 target_link_libraries(gnuradio-gr_ais ${Boost_LIBRARY_DIRS} ${GNURADIO_RUNTIME_LIBRARIES})
 set_target_properties(gnuradio-gr_ais PROPERTIES DEFINE_SYMBOL "gnuradio_gr_ais_EXPORTS")
