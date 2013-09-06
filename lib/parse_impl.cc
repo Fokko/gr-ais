@@ -1,51 +1,38 @@
-/*
- * Copyright 2004,2006,2007,2013 Free Software Foundation, Inc.
+/* -*- c++ -*- */
+/* 
+ * Copyright 2013 <+YOU OR YOUR COMPANY+>.
  * 
- * This file is part of GNU Radio
- * 
- * GNU Radio is free software; you can redistribute it and/or modify
+ * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
  * 
- * GNU Radio is distributed in the hope that it will be useful,
+ * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with GNU Radio; see the file COPYING.  If not, write to
+ * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
- */
-
-/*
- Useful AIS packet documents
-
- http://www.navcen.uscg.gov/?pageName=AISmain
- http://gpsd.berlios.de/AIVDM.html#_types_1_2_and_3_position_report_class_a
- http://rl.se/aivdm
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#include <parse_impl.h>
 #include <gnuradio/io_signature.h>
-#include <ctype.h>
-#include <iostream>
-#include <iomanip>
+#include <gnuradio/msg_queue.h>
+
 #include <boost/foreach.hpp>
-#include <gnuradio/tags.h>
-#include <gr_ais_api_impl.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+
+#include "parse_impl.h"
+
 
 namespace gr {
-namespace ais {
-
+  namespace ais {
 
 int d_num_stoplost;
 int d_num_startlost;
@@ -64,13 +51,18 @@ static const char ascii_table[64] = { '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
 		'$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1',
 		'2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?' };
 
-parse::parse_sptr parse::make_parse(gr::msg_queue::sptr queue, char designator,
-		int verbose, double lon, double lat) {
-	return parse_sptr(new parse_impl(queue, designator, verbose, lon, lat));
-}
+    parse::sptr
+    parse::make(gr::msg_queue::sptr queue, char designator, int verbose, double lat, double lon)
+    {
+      return gnuradio::get_initial_sptr
+        (new parse_impl(queue, designator, verbose, lat, lon));
+    }
 
-parse_impl::parse_impl(gr::msg_queue::sptr queue, char designator, int verbose,
-		double lon, double lat) :
+    /*
+     * The private constructor
+     */
+    parse_impl::parse_impl(gr::msg_queue::sptr queue, char designator, int verbose, double lat, double lon)
+      :
 		gr::sync_block("parse", gr::io_signature::make(1, 1, sizeof(char)),
 				gr::io_signature::make(0, 0, 0)), d_queue(queue), d_designator(
 				designator) {
@@ -94,12 +86,21 @@ parse_impl::parse_impl(gr::msg_queue::sptr queue, char designator, int verbose,
 		std::cout << "your longitude: " << d_qth_lon << std::endl;
 	}
 
-	set_output_multiple(1000);
-}
+	set_output_multiple(1000);}
 
-int parse_impl::work(int noutput_items, gr_vector_const_void_star &input_items,
-		gr_vector_void_star &output_items) {
-	const char *in = (const char *) input_items[0];
+    /*
+     * Our virtual destructor.
+     */
+    parse_impl::~parse_impl()
+    {
+    }
+
+    int
+    parse_impl::work(int noutput_items,
+			  gr_vector_const_void_star &input_items,
+			  gr_vector_void_star &output_items)
+    {
+const char *in = (const char *) input_items[0];
 
 	int size = noutput_items - 500; //we need to be able to look at least this far forward
 	if (size <= 0)
@@ -156,7 +157,8 @@ int parse_impl::work(int noutput_items, gr_vector_const_void_star &input_items,
 	delete (pkt);
 
 	return (end_mark - abs_sample_cnt);
-}
+    }
+
 
 void parse_impl::parse_data(char *data, int len) {
 	d_payload.str("");
@@ -1716,5 +1718,8 @@ unsigned char parse_impl::packet_crc(const char *buffer) {
 
 	return crc;
 }
-}
-}
+
+
+  } /* namespace ais */
+} /* namespace gr */
+

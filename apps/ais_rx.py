@@ -6,17 +6,14 @@
 #something else to do: brute-force error correction, a la gr-air.
 #another thing to do: use a Viterbi algorithm for detecting the demodulated data
 
-from gnuradio import gr, gru
-from gnuradio import eng_notation
-from gnuradio import digital
+from gnuradio import gr, gru, filter
+from gnuradio.filter import firdes
 from gnuradio.eng_option import eng_option
 
-from gr_ais import *
-from gr_ais.ais_demod import *
+from ais import ais_demod
 
 from optparse import OptionParser
 
-#from pkt import *
 import time
 import sys
 import gnuradio.gr.gr_threading as _threading
@@ -42,14 +39,12 @@ class my_top_block(gr.top_block):
 			self.u = gr.file_source(gr.sizeof_gr_complex, options.filename)
 		elif options.rtlsdr:
 			import osmosdr
-			self.u = osmosdr.source_c(options.args)
+			self.u = osmosdr.source(options.args)
 			self.u.set_sample_rate(options.rate)
                         self.u.set_freq_corr(options.error)
 			if not self.u.set_center_freq(162.0e6):
 				print "Failed to set frequency"
 			self.u.set_gain_mode(0)
-			if options.gain is None:
-				options.gain = 49
 			self.u.set_gain(options.gain)
 		else:
 			from gnuradio import uhd
@@ -61,7 +56,8 @@ class my_top_block(gr.top_block):
 
 			self._freq_offset = options.error
 			#print "Frequency offset is %i" % self._freq_offset
-			self._actual_freq = 162.0e6 - self._freq_offset #tune between the two AIS freqs
+			self._actual_freq = 162.0e6 - self._freq_offset 
+			#tune between the two AIS freqs
 			#print "Tuning to: %fMHz" % float(self._actual_freq / 1e6)
 			if not(self.tune(self._actual_freq)):
 				print "Failed to set initial frequency"
@@ -91,12 +87,12 @@ class my_top_block(gr.top_block):
 	def ais_rx(self, src, freq, designator, options, queue):
 		self.rate = options.rate
 		self.u = src
-		self.coeffs = gr.firdes.low_pass(1,self.rate,7000,1000)
+		self.coeffs = firdes.low_pass(1,self.rate,7000,1000)
 		self._filter_decimation = 4
-		self.filter = gr.freq_xlating_fir_filter_ccf(self._filter_decimation, 
-													 self.coeffs, 
-													 freq,
-													 self.rate)
+		self.filter = filter.freq_xlating_fir_filter_ccf(self._filter_decimation, 
+								 self.coeffs, 
+								 freq,
+								 self.rate)
 
 		self._bits_per_sec = 9600.0;
 
@@ -144,7 +140,7 @@ def main():
 #						help="set receive frequency to MHz [default=%default]", metavar="FREQ")
 	parser.add_option("-e", "--error", type="eng_float", default=0,
 						help="set offset error of USRP [default=%default]")
-	parser.add_option("-g", "--gain", type="int", default=None,
+	parser.add_option("-g", "--gain", type="int", default=49,
 						help="set RF gain", metavar="dB")
 	parser.add_option("-r", "--rate", type="eng_float", default=256e3,
 						help="set fgpa decimation rate to DECIM [default=%default]")

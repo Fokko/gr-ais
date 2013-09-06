@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<block>
+  <name>unstuff</name>
+  <key>ais_unstuff</key>
+  <category>ais</category>
+  <import>import ais</import>
+  <make>ais.unstuff($)</make>
+ 
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+</block>
