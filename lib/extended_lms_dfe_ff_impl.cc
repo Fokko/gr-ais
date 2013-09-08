@@ -48,20 +48,20 @@ namespace gr {
               gr::io_signature::make2(2, 2, sizeof(float), sizeof(char)),
               gr::io_signature::make(1, 1, sizeof(float))),
 	    d_lambda_ff (lambda_ff), d_lambda_fb (lambda_fb), 
-	    d_ff_delayline(gr_rounduppow2(num_fftaps)),
-	    d_fb_delayline(gr_rounduppow2(num_fbtaps)),
 	    d_ff_taps(num_fftaps), d_fb_taps(num_fbtaps),
-	    d_ff_index(0), d_fb_index(0), d_resetcounter(0)
+	    d_ff_index(0), d_fb_index(0), d_resetcounter(0),
+	    d_ff_delayline(roundup(num_fftaps)),
+	    d_fb_delayline(roundup(num_fbtaps))
     {
-	gr_zero_vector(d_ff_taps);
+	zero_vector(d_ff_taps);
 	d_ff_taps[d_ff_taps.size() / 2] = 1;
 
-	gr_zero_vector(d_fb_taps);
-	gr_zero_vector(d_ff_delayline);
-	gr_zero_vector(d_fb_delayline);
+	zero_vector(d_fb_taps);
+	zero_vector(d_ff_delayline);
+	zero_vector(d_fb_delayline);
 
 	set_output_multiple(300);
-}
+    }
 
     /*
      * Our virtual destructor.
@@ -71,28 +71,19 @@ namespace gr {
 
     }
 
-float slice(float val) {
-	if (val > 0)
-		return 1;
-	else
-		return -1;
-}
-
-
-
-void extended_lms_dfe_ff_impl::reset(void) {
-	gr_zero_vector(d_ff_taps);
+    void extended_lms_dfe_ff_impl::reset(void) {
+	zero_vector(d_ff_taps);
 	d_ff_taps[d_ff_taps.size() / 2] = 1;
 
-	gr_zero_vector(d_fb_taps);
-	gr_zero_vector(d_ff_delayline);
-	gr_zero_vector(d_fb_delayline);
+	zero_vector(d_fb_taps);
+	zero_vector(d_ff_delayline);
+	zero_vector(d_fb_delayline);
 
 	d_ff_index = 0;
 	d_fb_index = 0;
 
 	d_resetcounter = 0;
-}
+    }
 
 
     int

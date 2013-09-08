@@ -22,13 +22,6 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-<<<<<<< HEAD
-message( STATUS 'test' )
-message( STATUS ${Boost_LIBRARIES} )
-add_library(gnuradio-gr_ais SHARED extended_lms_dfe_ff_impl.cc freqest_impl.cc invert_impl.cc parse_impl.cc unstuff_impl.cc)
-target_link_libraries(gnuradio-gr_ais ${Boost_LIBRARY_DIRS} ${GNURADIO_RUNTIME_LIBRARIES})
-set_target_properties(gnuradio-gr_ais PROPERTIES DEFINE_SYMBOL "gnuradio_gr_ais_EXPORTS")
-=======
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND ais_sources
@@ -38,15 +31,13 @@ list(APPEND ais_sources
     parse_impl.cc
     unstuff_impl.cc )
 
-message( STATUS 'TEST' )
-message( STATUS ${GNURADIO_RUNTIME_LIBRARIES} )
 
 add_library(gnuradio-ais SHARED ${ais_sources})
 target_link_libraries(gnuradio-ais ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES})
 set_target_properties(gnuradio-ais PROPERTIES DEFINE_SYMBOL "gnuradio_ais_EXPORTS")
->>>>>>> 7d6a733d7503d3f8c2f63a4bd8613cf10f6540d1
 
-########################################################################
+
+############################################################
 # Install built library files
 ########################################################################
 install(TARGETS gnuradio-ais
@@ -78,3 +69,16 @@ target_link_libraries(
 )
 
 GR_ADD_TEST(test_ais test-ais)
+
+
+########################################################################
+# Install public header files
+########################################################################
+
+install(FILES
+    extended_lms_dfe_ff_impl.h
+    freqest_impl.h
+    invert_impl.h
+    parse_impl.h
+    unstuff_impl.h DESTINATION include/ais
+)

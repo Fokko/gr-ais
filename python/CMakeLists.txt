@@ -30,7 +30,9 @@ endif()
 ########################################################################
 GR_PYTHON_INSTALL(
     FILES
+    fsm_utils.py
     ais_demod.py
+    gmsk_sync.py
     __init__.py
     DESTINATION ${GR_PYTHON_DIR}/ais
 )

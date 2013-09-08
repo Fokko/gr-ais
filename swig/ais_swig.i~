@@ -9,6 +9,7 @@
 
 %{
 #include "gnuradio/msg_queue.h"
+#include "gnuradio/misc.h"
 #include "ais/extended_lms_dfe_ff.h"
 #include "ais/freqest.h"
 #include "ais/invert.h"

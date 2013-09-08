@@ -63,9 +63,11 @@ static const char ascii_table[64] = { '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
      */
     parse_impl::parse_impl(gr::msg_queue::sptr queue, char designator, int verbose, double lat, double lon)
       :
-		gr::sync_block("parse", gr::io_signature::make(1, 1, sizeof(char)),
-				gr::io_signature::make(0, 0, 0)), d_queue(queue), d_designator(
-				designator) {
+		gr::sync_block("parse", 
+				gr::io_signature::make(1, 1, sizeof(char)),
+				gr::io_signature::make(0, 0, 0)),
+			d_queue(queue), d_designator(designator)
+    {
 	d_num_stoplost = 0;
 	d_num_startlost = 0;
 	d_num_found = 0;

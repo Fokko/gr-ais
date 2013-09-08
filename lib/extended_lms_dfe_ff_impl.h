@@ -26,7 +26,7 @@
 namespace gr {
   namespace ais {
 
-    class extended_lms_dfe_ff_impl : public extended_lms_dfe_ff
+    class extended_lms_dfe_ff_impl : virtual public extended_lms_dfe_ff
     {
      private:
 
@@ -41,15 +41,34 @@ namespace gr {
 	unsigned int d_fb_index;
 	unsigned int d_resetcounter;
 
+ 	inline void zero_vector(std::vector<float> &v)
+  	{
+    		for(unsigned int i=0; i < v.size(); i++)
+      			v[i] = 0;
+  	}
+
+	inline float slice(float val) {
+		if (val > 0)	
+			return 1;
+		else
+			return -1;
+	}
+
+
+
+    	inline unsigned int roundup(unsigned int n)
+    	{
+    		int i;
+    		for(i=0;((n-1)>>i) != 0;i++);
+	}
 
 	void reset(void);
-
      public:
       extended_lms_dfe_ff_impl(float lambda_ff, float lambda_fb, unsigned int num_fftaps, unsigned int num_fbtaps);
       ~extended_lms_dfe_ff_impl();
 
-      // Where all the action really happens
-      int work(int noutput_items,
+
+      virtual int work(int noutput_items,
 	       gr_vector_const_void_star &input_items,
 	       gr_vector_void_star &output_items);
     };

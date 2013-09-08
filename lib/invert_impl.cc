@@ -42,7 +42,9 @@ namespace gr {
       : gr::sync_block("invert",
               gr::io_signature::make(1, 1, sizeof(char)),
               gr::io_signature::make(1, 1, sizeof(char)))
-    {}
+    {
+
+    }
 
     /*
      * Our virtual destructor.
@@ -56,7 +58,7 @@ namespace gr {
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
-const char *in = (const char *) input_items[0];
+	const char *in = (const char *) input_items[0];
 	char *out = (char *) output_items[0];
 
 	for (int i = 0; i < noutput_items; i++) {
@@ -68,7 +70,7 @@ const char *in = (const char *) input_items[0];
 
 	// Tell runtime system how many output items we produced.
 	return noutput_items;
-}
+     }
 
   } /* namespace ais */
 } /* namespace gr */

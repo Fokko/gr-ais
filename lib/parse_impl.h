@@ -107,17 +107,17 @@ namespace gr {
 		return (ais & 0x3f);
 	}
 
-     public:
 	std::ostringstream d_payload; // message output
 	gr::msg_queue::sptr d_queue;	  // Destination for decoded messages
 	char d_designator;
 	unsigned long d_verbose;
 
+     public:
       parse_impl(gr::msg_queue::sptr queue, char designator, int verbose, double lat, double lon);
       ~parse_impl();
 
       // Where all the action really happens
-      int work(int noutput_items,
+      virtual int work(int noutput_items,
 	       gr_vector_const_void_star &input_items,
 	       gr_vector_void_star &output_items);
     };

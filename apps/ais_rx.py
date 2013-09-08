@@ -6,11 +6,12 @@
 #something else to do: brute-force error correction, a la gr-air.
 #another thing to do: use a Viterbi algorithm for detecting the demodulated data
 
-from gnuradio import gr, gru, filter
+from gnuradio import gr, gru, filter, digital, analog
 from gnuradio.filter import firdes
 from gnuradio.eng_option import eng_option
 
-from ais import ais_demod
+from ais import *
+from ais.ais_demod import *
 
 from optparse import OptionParser
 
@@ -39,7 +40,7 @@ class my_top_block(gr.top_block):
 			self.u = gr.file_source(gr.sizeof_gr_complex, options.filename)
 		elif options.rtlsdr:
 			import osmosdr
-			self.u = osmosdr.source(options.args)
+			self.u = osmosdr.source_c(options.args)
 			self.u.set_sample_rate(options.rate)
                         self.u.set_freq_corr(options.error)
 			if not self.u.set_center_freq(162.0e6):
@@ -108,21 +109,16 @@ class my_top_block(gr.top_block):
 		options.samp_rate = self.rate / self._filter_decimation
                 #ais_demod.py, hierarchical demodulation block, takes in complex baseband and spits out 1-bit packed bitstream
                 self.demod = ais_demod(options)
-		self.unstuff = ais.unstuff() #ais_unstuff.cc, unstuffs data
+		self.unstuff = unstuff() #ais_unstuff.cc, unstuffs data
                 #should mark start of packet
-                self.start_correlator = gr.correlate_access_code_tag_bb("1010101010101010", 0, "ais_preamble")
+                self.start_correlator = digital.correlate_access_code_tag_bb("1010101010101010", 0, "ais_preamble")
                 #should mark start and end of packet
-                self.stop_correlator = gr.correlate_access_code_tag_bb("01111110", 0, "ais_frame")
+                self.stop_correlator = digital.correlate_access_code_tag_bb("01111110", 0, "ais_frame")
                 #ais_parse.cc, calculates CRC, parses data into ASCII message, moves data onto queue
-                self.parse = ais.parse(queue, designator, options.verbose, options.lon, options.lat)
+                self.parse = parse(queue, designator, options.verbose, options.lon, options.lat)
 
-		self.connect(self.u,
-		             self.filter,
-		             self.demod,
-		             self.unstuff,
-		             self.start_correlator,
-		             self.stop_correlator,
-		             self.parse) #parse posts messages to the queue, which the main loop reads and prints
+		self.connect(self.u, self.filter, self.demod, self.unstuff, self.start_correlator, self.stop_correlator, self.parse) 
+		#parse posts messages to the queue, which the main loop reads and prints
 
 
 def main():

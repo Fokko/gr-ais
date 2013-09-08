@@ -19,7 +19,7 @@
 # Boston, MA 02110-1301, USA.
 # 
 
-from gnuradio import *
+from gnuradio import gr, gr_unittest
 import ais_swig as ais
 
 class qa_extended_lms_dfe_ff (gr_unittest.TestCase):

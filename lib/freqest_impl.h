@@ -38,7 +38,7 @@ namespace gr {
       ~freqest_impl();
 
       // Where all the action really happens
-      int work(int noutput_items,
+      virtual int work(int noutput_items,
 	       gr_vector_const_void_star &input_items,
 	       gr_vector_void_star &output_items);
     };

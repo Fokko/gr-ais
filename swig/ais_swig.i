@@ -2,7 +2,7 @@
 
 #define AIS_API
 
-%include "runtime_swig.i"			// the common stuff
+%include "gnuradio.i"			// the common stuff
 
 //load generated python docstrings
 %include "ais_swig_doc.i"
@@ -19,12 +19,14 @@
 
 
 %include "ais/extended_lms_dfe_ff.h"
-GR_SWIG_BLOCK_MAGIC2(ais, extended_lms_dfe_ff);
 %include "ais/freqest.h"
-GR_SWIG_BLOCK_MAGIC2(ais, freqest);
 %include "ais/invert.h"
-GR_SWIG_BLOCK_MAGIC2(ais, invert);
 %include "ais/parse.h"
-GR_SWIG_BLOCK_MAGIC2(ais, parse);
 %include "ais/unstuff.h"
+
+
+GR_SWIG_BLOCK_MAGIC2(ais, extended_lms_dfe_ff);
+GR_SWIG_BLOCK_MAGIC2(ais, freqest);
+GR_SWIG_BLOCK_MAGIC2(ais, invert);
+GR_SWIG_BLOCK_MAGIC2(ais, parse);
 GR_SWIG_BLOCK_MAGIC2(ais, unstuff);

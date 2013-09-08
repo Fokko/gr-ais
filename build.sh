@@ -4,6 +4,6 @@ cd build
 cmake ../
 make
 ctest -V
-make install
-ldconfig
-python /home/fokko/Desktop/gr-ais/apps/ais_rx.py -d
+sudo make install
+sudo ldconfig
+ais_rx.py -d

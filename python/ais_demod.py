@@ -10,12 +10,12 @@
 #second, there's no provision for phase estimation, so the combined trellis assumes each packet starts at phase=0.
 #sometimes it'll cope with this, but it loses a lot of packets
 
-from gnuradio import gr, gru, blks2
+from ais import *
+from gnuradio import gr, gru, filter, analog, digital
 from gnuradio import eng_notation
 from gnuradio import trellis
 from gnuradio import window
 from gnuradio import digital
-import gr_ais_swig as ais
 import fsm_utils
 import gmsk_sync
 
@@ -61,7 +61,6 @@ def gcd(a, b):
 
 class ais_demod(gr.hier_block2):
     def __init__(self, options):
-
 		gr.hier_block2.__init__(self, "ais_demod",
                                 gr.io_signature(1, 1, gr.sizeof_gr_complex), # Input signature
                                 gr.io_signature(1, 1, gr.sizeof_char)) # Output signature
@@ -104,20 +103,20 @@ class ais_demod(gr.hier_block2):
 
 		else:
 		#this is probably not optimal and someone who knows what they're doing should correct me
-			self.datafiltertaps = gr.firdes.root_raised_cosine(10, #gain
+			self.datafiltertaps = filter.firdes.root_raised_cosine(10, #gain
 													  self._samplerate*32, #sample rate
 													  self._bits_per_sec, #symbol rate
 													  0.4, #alpha, same as BT?
 													  50*32) #no. of taps
 
-			self.datafilter = gr.fir_filter_fff(1, self.datafiltertaps)
+			self.datafilter = filter.fir_filter_fff(1, self.datafiltertaps)
 
 			sensitivity = (math.pi / 2) / self._samples_per_symbol
-			self.demod = gr.quadrature_demod_cf(sensitivity) #param is gain
+			self.demod = analog.quadrature_demod_cf(sensitivity) #param is gain
 
 			#self.clockrec = digital.clock_recovery_mm_ff(self._samples_per_symbol,0.25*self._gain_mu*self._gain_mu,self._mu,self._gain_mu,self._omega_relative_limit)
-			self.clockrec = gr.pfb_clock_sync_ccf(self._samples_per_symbol, 0.04, self.datafiltertaps, 32, 0, 1.15)
-			self.tcslicer = digital.digital.binary_slicer_fb()
+			self.clockrec = digital.pfb_clock_sync_ccf(self._samples_per_symbol, 0.04, self.datafiltertaps, 32, 0, 1.15)
+			self.tcslicer = digital.binary_slicer_fb()
 #			self.dfe = digital.digital.lms_dd_equalizer_cc(
 #										   32,
 #										   0.005,
@@ -132,8 +131,8 @@ class ais_demod(gr.hier_block2):
 #just a note here: a complex combined quad demod/slicer could be based on if's rather than an actual quad demod, right?
 #in fact all the constellation decoders up to QPSK could operate on complex data w/o doing the whole atan thing
 
-		self.diff = gr.diff_decoder_bb(2)
-		self.invert = ais.invert() #NRZI signal diff decoded and inverted should give original signal
+		self.diff = digital.diff_decoder_bb(2)
+		self.invert = invert() #NRZI signal diff decoded and inverted should give original signal
 
 		self.connect(self, self.gmsk_sync)
 

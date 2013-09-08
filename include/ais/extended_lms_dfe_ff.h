@@ -38,8 +38,8 @@ namespace gr {
     {
      public:
       typedef boost::shared_ptr<extended_lms_dfe_ff> sptr;
-
-      /*!
+	
+	/*!
        * \brief Return a shared_ptr to a new instance of ais::extended_lms_dfe_ff.
        *
        * To avoid accidental use of raw pointers, ais::extended_lms_dfe_ff's
